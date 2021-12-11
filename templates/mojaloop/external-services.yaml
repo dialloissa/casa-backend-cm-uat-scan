@@ -1,0 +1,96 @@
+# This manifest exists to create a static name to use as a database host. That static name is:
+#   casa-centralledger-mysql.ext-svcs.svc.cluster.local
+# The service in this manifest presents the DNS name above. It resolves to a CNAME record pointing
+# at the in-cluster database server. Because the in-cluster database name changes depending on the
+# release name, we have some very awkward templating rules to propagate this to services. This
+# manifest means we can use a static name in the values file, and the messiness of resolving the
+# release-name-dependent database hostname is contained within this file.
+# Example:
+#   helm install --name HELLO -f values-uat.yaml .
+# produces a database hostname:
+#   HELLO-centralledger-mysql
+# so for the services to have that in their config, they must have a database hostname of:
+#   $release-centralledger-mysql
+# and $release has to have a rule in _every_ helper or template manifest file something like this:
+#   define $release = .Release.Name
+# This manifest file avoids all that messiness and allows all the services to refer to the database
+# host simply with the name casa-centralledger-mysql.ext-svcs.svc.cluster.local
+#
+# The namespace must be created with a static name, because otherwise the database hostname would
+# be something like this:
+#   casa-centralledger-mysql.$variable-namespace-name.svc.cluster.local
+# i.e. we couldn't use the static name in the values files.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ext-svcs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: casa-account-lookup-mysql
+  namespace: ext-svcs
+spec:
+  type: ExternalName
+  externalName: {{ .Release.Name }}-account-lookup-mysql.{{ .Release.Namespace }}.svc.cluster.local
+  ports:
+  - name: mysql
+    port: 3306
+    targetPort: 3306
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: casa-centralledger-mysql
+  namespace: ext-svcs
+spec:
+  type: ExternalName
+  externalName: {{ .Release.Name }}-centralledger-mysql.{{ .Release.Namespace }}.svc.cluster.local
+  ports:
+  - name: mysql
+    port: 3306
+    targetPort: 3306
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: casa-centralledger-service
+  namespace: ext-svcs
+spec:
+  type: ExternalName
+  externalName: {{ .Release.Name }}-centralledger-service.{{ .Release.Namespace }}.svc.cluster.local
+  ports:
+  - name: http-api
+    port: 80
+    targetPort: 3001
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: casa-centralsettlement
+  namespace: ext-svcs
+spec:
+  type: ExternalName
+  externalName: {{ .Release.Name }}-centralsettlement.{{ .Release.Namespace }}.svc.cluster.local
+  ports:
+  - name: http-api
+    port: 80
+    targetPort: 3007
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-api-adapter-service
+  namespace: ext-svcs
+spec:
+  type: ExternalName
+  externalName: {{ .Release.Name }}-ml-api-adapter-service.{{ .Release.Namespace }}.svc.cluster.local
+  ports:
+  - name: http-api
+    port: 80
+    targetPort: 3000
+    protocol: TCP

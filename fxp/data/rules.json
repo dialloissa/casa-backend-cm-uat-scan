@@ -1,0 +1,7 @@
+[
+  {
+    "id": "RATE_FREEZE_PERIOD_SEC",
+    "value": "30",
+    "description": "Amount of time in seconds that an exchange rate is valid after its expiration date"
+  }
+]

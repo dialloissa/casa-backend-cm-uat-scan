@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.fxpServerInitialConfigMapName }}
+  namespace: {{ default .Release.Namespace (index .Values "mojaloop-fxp" "namespace") }}
+  labels:
+    app: {{ template "casa.name" . }}
+    chart: {{ template "casa.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+ currencyCodes.json: {{ .Files.Get "fxp/data/currencyCodes.json" | quote }}
+ currencyDFSP.json: {{ .Files.Get "fxp/data/currencyDFSP.json" | quote }}
+ channelRates.json: {{ .Files.Get "fxp/data/channelRates.json" | quote }}

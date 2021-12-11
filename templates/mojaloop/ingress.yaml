@@ -1,0 +1,53 @@
+{{- if .Values.casa.ingress.enabled -}}
+{{- $alsServiceName := printf "%s-%s" .Release.Name "account-lookup-service" -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "casa.fullname" . }}
+  labels:
+    app: {{ template "casa.name" . }}
+    chart: {{ template "casa.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+{{- with .Values.casa.ingress.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  rules:
+    - host: {{ .Values.casa.ingress.hosts.api }}
+      http:
+        paths:
+          - path: /participants
+            backend:
+              serviceName: {{ $alsServiceName }}
+              servicePort: http-api
+    - host: {{ .Values.casa.ingress.hosts.api }}
+      http:
+        paths:
+          - path: /parties
+            backend:
+              serviceName: {{ $alsServiceName }}
+              servicePort: http-api
+    - host: {{ .Values.casa.ingress.hosts.api }}
+      http:
+        paths:
+          - path: /quotes
+            backend:
+              serviceName: {{ printf "%s-%s" .Release.Name "quoting-service" }}
+              servicePort: 80
+    - host: {{ .Values.casa.ingress.hosts.api }}
+      http:
+        paths:
+          - path: /transfers
+            backend:
+              serviceName: {{ printf "%s-%s" .Release.Name "ml-api-adapter-service" }}
+              servicePort: 80
+    - host: {{ .Values.casa.ingress.hosts.api }}
+      http:
+        paths:
+          - path: /jasperserver
+            backend:
+              serviceName: {{ .Release.Name }}-reporting
+              servicePort: 80
+    {{- end }}

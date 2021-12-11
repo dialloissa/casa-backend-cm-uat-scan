@@ -1,0 +1,1921 @@
+prefix: ""
+
+sharedJWSPubKeys:
+  switch: |-
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAviMjmsAOcEjMZqSgt97O
+    /2/nU4oArUNCzgyJL23rjTkWFQRS/OknMqQCO6QLbq/7VHgY4+Kr7+HcODY/Lzzj
+    7wiLUvHtqimjrJdr1XlkhJcGcr0U5BTUCr/fh5Cl8H+tjdKXiYyoarw/M54E2UCQ
+    Qg++A+aYihy/5S6COBIwyJotK9CdG7sw4Cu5YtC7taQ7lTM5m+UyVTSU2BFIZrgF
+    Uc7XwjnuhYwxDe3jqG8My8chUHyx3MRXbgE3I2HXdrpM8BAR71GlG/chMnMIJVR+
+    rqQzBJz1Gup8Q//hMIjvbaiKrvIr0+tfA9XS6AEvEMegahPoi6Qv704CdV+qYhHR
+    4wIDAQAB
+    -----END PUBLIC KEY-----
+  DFSPMAD: |-
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtefiGeUFAhw71bM3VIGk
+    oS2oTnfZsPBmCSX6EblRALA8JyNonHLgWErnKQjvGQav2Zv/FOosAa8ZhlxSXh0G
+    TzEWdBFYWIpBo7xs0ot4iK6AQ8dbEzwc6c7FkXbfGk9T6TD9efTJNjB841Boks4g
+    Gx25PfylgYN71DgPRJpH4TzNBymioDBNxb1pIfXEo5GCc+xSeSKBJ/JpKKAQS0lP
+    E4myNzrQLcVl4hmbYUNqi9xx/MH3RncVQO0oWE/X+4t/bAnksBxjdJ3Yb1sAJ5Jl
+    NegempipsjfA1g/ZzdorjJZwgLbblPsrOWHT+wx/pVmjuaR2UYpGNzmOU3YMmBdp
+    6wIDAQAB
+    -----END PUBLIC KEY-----
+  DFSPEUR: |-
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtefiGeUFAhw71bM3VIGk
+    oS2oTnfZsPBmCSX6EblRALA8JyNonHLgWErnKQjvGQav2Zv/FOosAa8ZhlxSXh0G
+    TzEWdBFYWIpBo7xs0ot4iK6AQ8dbEzwc6c7FkXbfGk9T6TD9efTJNjB841Boks4g
+    Gx25PfylgYN71DgPRJpH4TzNBymioDBNxb1pIfXEo5GCc+xSeSKBJ/JpKKAQS0lP
+    E4myNzrQLcVl4hmbYUNqi9xx/MH3RncVQO0oWE/X+4t/bAnksBxjdJ3Yb1sAJ5Jl
+    NegempipsjfA1g/ZzdorjJZwgLbblPsrOWHT+wx/pVmjuaR2UYpGNzmOU3YMmBdp
+    6wIDAQAB
+    -----END PUBLIC KEY-----
+  DFSPUGX: |-
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtefiGeUFAhw71bM3VIGk
+    oS2oTnfZsPBmCSX6EblRALA8JyNonHLgWErnKQjvGQav2Zv/FOosAa8ZhlxSXh0G
+    TzEWdBFYWIpBo7xs0ot4iK6AQ8dbEzwc6c7FkXbfGk9T6TD9efTJNjB841Boks4g
+    Gx25PfylgYN71DgPRJpH4TzNBymioDBNxb1pIfXEo5GCc+xSeSKBJ/JpKKAQS0lP
+    E4myNzrQLcVl4hmbYUNqi9xx/MH3RncVQO0oWE/X+4t/bAnksBxjdJ3Yb1sAJ5Jl
+    NegempipsjfA1g/ZzdorjJZwgLbblPsrOWHT+wx/pVmjuaR2UYpGNzmOU3YMmBdp
+    6wIDAQAB
+    -----END PUBLIC KEY-----
+  DFSPZMW: |-
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtefiGeUFAhw71bM3VIGk
+    oS2oTnfZsPBmCSX6EblRALA8JyNonHLgWErnKQjvGQav2Zv/FOosAa8ZhlxSXh0G
+    TzEWdBFYWIpBo7xs0ot4iK6AQ8dbEzwc6c7FkXbfGk9T6TD9efTJNjB841Boks4g
+    Gx25PfylgYN71DgPRJpH4TzNBymioDBNxb1pIfXEo5GCc+xSeSKBJ/JpKKAQS0lP
+    E4myNzrQLcVl4hmbYUNqi9xx/MH3RncVQO0oWE/X+4t/bAnksBxjdJ3Yb1sAJ5Jl
+    NegempipsjfA1g/ZzdorjJZwgLbblPsrOWHT+wx/pVmjuaR2UYpGNzmOU3YMmBdp
+    6wIDAQAB
+    -----END PUBLIC KEY-----
+  DFSPRWF: |-
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtefiGeUFAhw71bM3VIGk
+    oS2oTnfZsPBmCSX6EblRALA8JyNonHLgWErnKQjvGQav2Zv/FOosAa8ZhlxSXh0G
+    TzEWdBFYWIpBo7xs0ot4iK6AQ8dbEzwc6c7FkXbfGk9T6TD9efTJNjB841Boks4g
+    Gx25PfylgYN71DgPRJpH4TzNBymioDBNxb1pIfXEo5GCc+xSeSKBJ/JpKKAQS0lP
+    E4myNzrQLcVl4hmbYUNqi9xx/MH3RncVQO0oWE/X+4t/bAnksBxjdJ3Yb1sAJ5Jl
+    NegempipsjfA1g/ZzdorjJZwgLbblPsrOWHT+wx/pVmjuaR2UYpGNzmOU3YMmBdp
+    6wIDAQAB
+    -----END PUBLIC KEY-----
+  DFSPGHS: |-
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtefiGeUFAhw71bM3VIGk
+    oS2oTnfZsPBmCSX6EblRALA8JyNonHLgWErnKQjvGQav2Zv/FOosAa8ZhlxSXh0G
+    TzEWdBFYWIpBo7xs0ot4iK6AQ8dbEzwc6c7FkXbfGk9T6TD9efTJNjB841Boks4g
+    Gx25PfylgYN71DgPRJpH4TzNBymioDBNxb1pIfXEo5GCc+xSeSKBJ/JpKKAQS0lP
+    E4myNzrQLcVl4hmbYUNqi9xx/MH3RncVQO0oWE/X+4t/bAnksBxjdJ3Yb1sAJ5Jl
+    NegempipsjfA1g/ZzdorjJZwgLbblPsrOWHT+wx/pVmjuaR2UYpGNzmOU3YMmBdp
+    6wIDAQAB
+    -----END PUBLIC KEY-----
+  DFSPXOF: |-
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtefiGeUFAhw71bM3VIGk
+    oS2oTnfZsPBmCSX6EblRALA8JyNonHLgWErnKQjvGQav2Zv/FOosAa8ZhlxSXh0G
+    TzEWdBFYWIpBo7xs0ot4iK6AQ8dbEzwc6c7FkXbfGk9T6TD9efTJNjB841Boks4g
+    Gx25PfylgYN71DgPRJpH4TzNBymioDBNxb1pIfXEo5GCc+xSeSKBJ/JpKKAQS0lP
+    E4myNzrQLcVl4hmbYUNqi9xx/MH3RncVQO0oWE/X+4t/bAnksBxjdJ3Yb1sAJ5Jl
+    NegempipsjfA1g/ZzdorjJZwgLbblPsrOWHT+wx/pVmjuaR2UYpGNzmOU3YMmBdp
+    6wIDAQAB
+    -----END PUBLIC KEY-----
+  noresponsepayeefsp: |-
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwD/fpoWARAn7NHiRHnKz
+    JAaglNMA+ve/+I2mjM75aR1n2670kUuqQdlHfP/DtdyGKmQOf7iQ+1mnlJwPWhEf
+    8isvD7BS96kb3h4vvaTBDmvbwm6aoq0JutR9qWWQ/j8I6VA/97nwlsHKF9BovIzb
+    IRqqlixzZTtWE8uF81E1o43BvifLvycj5SXTmc3qMB3sfrmzcgAzuyRrjbwtKqa3
+    TTySfzCjlzU4wgC1r7lm/PcoXoxRN5wYu4+D+WAuv64HRr+HQUA4iNFnUBlE8sdL
+    3bvCft4SXo4Pvlbi7ecaFxdDkQDiLgJCj43fei6p3e9gcxm8cPET7CeLkHJukM8i
+    yQIDAQAB
+    -----END PUBLIC KEY-----
+
+# As per:
+# https://github.com/mojaloop/helm/blob/4afd91b4d4c976e1f8d60495c677f1ba48b30192/mojaloop-simulator/values.yaml#L130-L134
+ingress:
+  ingressPathRewriteRegex: /
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+
+defaults:
+  config:
+    backend:
+      env:
+        FEE_MULTIPLIER: "0.00"
+    schemeAdapter:
+      image:
+        tag: v10.5.3
+      env:
+        VALIDATE_INBOUND_JWS: "true"
+        PEER_ENDPOINT: "uat-casa-interop-switch.casahub.live"
+        JWS_SIGN: "true"
+        AUTO_ACCEPT_QUOTES: "true"
+        AUTO_ACCEPT_PARTY: "true"
+        EXPIRY_SECONDS: 30
+        REQUEST_PROCESSING_TIMEOUT_SECONDS: 20
+        USE_QUOTE_SOURCE_FSP_AS_TRANSFER_PAYEE_FSP: "true"
+        REJECT_TRANSFERS_ON_EXPIRED_QUOTES: "true"
+        # TODO: check consistency between all sims
+        ILP_SECRET: "Quaixohyaesahju3thivuiChai5cahng"
+        # TODO: JWS_SIGNING_KEY_PATH specified here until the following PR is merged:
+        # https://github.com/mojaloop/helm/pull/344
+        JWS_SIGNING_KEY_PATH: "/jwsSigningKey/private.key"
+  ingress:
+    enabled: true
+    hosts:
+      - "uat-casa-interop-switch.casahub.live"
+
+simulators:
+  payerfsp:
+    config:
+      schemeAdapter:
+        env:
+          WSO2_BEARER_TOKEN: "0bc1356d-8b49-305f-ac99-5418e46ea862"
+        secrets:
+          jws:
+            privateKey: |-
+              -----BEGIN PRIVATE KEY-----
+              MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDEvEvNr3FM/0dA
+              2qJ5+RONu+QPCRm3QGlgJvmL5c9lBbRF6YxIi4nG06WR8+08aU3D2GQnMEwPyqSI
+              yw5ksE/3x7Ljbk7cqb+wMLUSGZwpavpb56PNXEZK49KRxp8K++ewy71LLVqLBzon
+              L7mz40v7ASTIyRcyHfTEIR+AxWWC+zXGX2hLA/aFC2QwI428C+hwvfbzZuBwc+ZR
+              xvmdb78LSgdfNgpPKYTYYRWzts8sFbZ3jCx/rnx0Mf4EtgEE+Hm847Bcr1tcHed4
+              gmbtXhTs6l+psPd995Pki26lIj72V03MyEAIuau8jQMKXQeWS4A+jVa8yTiluZVS
+              erWhub1lAgMBAAECggEADKxbjruxRwY/0w3yfvx8VbpHke9iZHNmBl9kXm52qnmQ
+              WBuYIZk5jiEWrp0ByI05CPdw1jRuhermJ/i6q+JOuHW5EJ0Lv/vAYSt2Ep0rOeDO
+              EWsN2n4J+iuMZj8fAjBhh7pMLqJUjZWw2ZLhudSX0arMcZHAqIYU/ShsFNnCdQo4
+              OjVemCooeR37SqwuDJpLQWkFwH9v6xc2XSP+iiVBACNqOLd1v9IpsMhrI5OmWqpe
+              GhNO2+L4XNn5TNo0izfQ4PlubJ9ZvTvb1/KL3RIytExPvllWHbLdcDCtbrniCQs0
+              X8X+ox0qskqanzpU0H1DQ7VY73mdFe4Bsq8WW4e60QKBgQDxaWEflFTUCafUTjO3
+              2N2uKAW0iOCIMFWMwLAjIpcgKPrNOM7heICkXMbJhfRMviHiSjHPMU7RY64/Vufc
+              +blj7tVWgVGpLOy6OHlgI9FuZpvglavJJIdo4mMaT56W+b/P56h26ogi/AoNZoYO
+              iIH3lIZ89XlcVK5hXPLEjNZkNQKBgQDQn8fT3IW12Mo2kW0OMCuk29eGGjpmd+2h
+              NGl9/B/ghDQw4Sh6CAovg1e4rRz4kHE2ddJAIJZCCNawXRhiM/F6NFWL7P6+p9OA
+              Ptgl9qU84K/ozn5Wr9lWQWGUa2K2tgomE6wMLWkTRIiLI4/m8vM49PBMttScBaoo
+              n5Lx8EW6cQKBgQC2AK2hglIF3hWyoRaqt4xBnZjXiA5HfrEwwaDJjG2FaH/VMsv9
+              /rx1riCMlDoflYS0Nx2gSFtUz6Lxy9JYrckQR2J9qldnhSAgMS2IxthBNIi2ZAC0
+              T57q+yqeDoLQ7g+nbc57gMwMHBp0CeRtlortngNauDK74nfpnYrFliyYNQKBgQDL
+              r9S4IwxhOWJk2KOzQJC8CvBoO99dACaAR93fZXPyDuGt/4c3bfYT4ZaZ9lrczJnc
+              ZDh859QMcPi7hIk0CCbx+3qyfRdTKiQziCgdGKzHvU/CaymqlVILBxawhBAC98T8
+              3CQUV5nJeBYgUv5CrF2P9IVRQQhftKAnvXUIxmAt4QKBgQDGM6OJyyqfhyCf+e1U
+              i3Nc6VoW0U2XtX2MfzwJJy83KmMvS80FNz+fHRrQ/N/aAby3zCNqsBASofal5Xyp
+              vR5OO+YmAXtaVeMeNUG6OFZz7bMWDpkchf/3JGazuVlPs4iX56GMhnvhgfxMJW5I
+              A8Nw1jL7Fh+JE9DgQ1WzJQuyXA==
+              -----END PRIVATE KEY-----
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxLxLza9xTP9HQNqiefkT
+              jbvkDwkZt0BpYCb5i+XPZQW0RemMSIuJxtOlkfPtPGlNw9hkJzBMD8qkiMsOZLBP
+              98ey425O3Km/sDC1EhmcKWr6W+ejzVxGSuPSkcafCvvnsMu9Sy1aiwc6Jy+5s+NL
+              +wEkyMkXMh30xCEfgMVlgvs1xl9oSwP2hQtkMCONvAvocL3282bgcHPmUcb5nW+/
+              C0oHXzYKTymE2GEVs7bPLBW2d4wsf658dDH+BLYBBPh5vOOwXK9bXB3neIJm7V4U
+              7OpfqbD3ffeT5ItupSI+9ldNzMhACLmrvI0DCl0HlkuAPo1WvMk4pbmVUnq1obm9
+              ZQIDAQAB
+              -----END PUBLIC KEY-----
+  payeefsp:
+    config:
+      schemeAdapter:
+        env:
+          WSO2_BEARER_TOKEN: "951fa8c7-5047-3748-a715-f8b3e6603783"
+        secrets:
+          jws:
+            privateKey: |-
+              -----BEGIN PRIVATE KEY-----
+              MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDAP9+mhYBECfs0
+              eJEecrMkBqCU0wD697/4jaaMzvlpHWfbrvSRS6pB2Ud8/8O13IYqZA5/uJD7WaeU
+              nA9aER/yKy8PsFL3qRveHi+9pMEOa9vCbpqirQm61H2pZZD+PwjpUD/3ufCWwcoX
+              0Gi8jNshGqqWLHNlO1YTy4XzUTWjjcG+J8u/JyPlJdOZzeowHex+ubNyADO7JGuN
+              vC0qprdNPJJ/MKOXNTjCALWvuWb89yhejFE3nBi7j4P5YC6/rgdGv4dBQDiI0WdQ
+              GUTyx0vdu8J+3hJejg++VuLt5xoXF0ORAOIuAkKPjd96Lqnd72BzGbxw8RPsJ4uQ
+              cm6QzyLJAgMBAAECggEADVkR9++ad37i6mJ5nu3TSsvL//FDhulHMqRxHSMstXPl
+              d18HG4RvoolJuZ/PcJPKW+ydBhikNlNj+4E3XqdEOs3tQ09Yf1oGNY6OfYIQJmZu
+              OGpyAZv2ijqBLA8BeWmafoqEGnjWP71eQPeHIho8h6igkfMtouhzAkZV+04W5Y9N
+              xd42m4ZCfvKWlQbmTn82WZD8AdzEqQlmeLP1V4fsG/GMERm/bsbRVRDjVTtZ2k7B
+              dttNp+qwsoDYb9zJFJV7EMDHh5+Dm+it8Zf7RsgjZyHSQw/y1z2508geExBBEgsD
+              gX8g6J7YafDjX9IOwlHmuNqzgiQXHLrTGZraBp8QZQKBgQD8TkoXdN7mTsyxbDmy
+              IiIoqd9E5L277a6YRd/gXyifqZwhqHpky3+mSsI85EIEfhpXf587ez70MvodSVbB
+              GiSU0AhDP/QrgAdZkPrEpc+N+UG7Ld5lqsQylrEDDkPRAORES9Jcs6vH7PfybLOA
+              /f9BqRzOGpfKDQ7MX2gwOWxzLQKBgQDDEHoVBFf22yLauHWbxLPxW9iOmdGCZ5U3
+              4gv6dUIcUPwv7wp+ZaNsBKgmK1aUfP/2qFaWQ9HrWQbh2DVe/4If9VpvCS9mtD3N
+              4BeTCOISLxDQJTO4nm8Rxa/s1NwH5/ZYbcCNHYWGa27n0p9J4OZCGzf4X+hUwQPM
+              oLS/hG5fjQKBgH6nwnPh/F864XCTdqcgkWs+U1FfTou/di0Erq0Qt/DmkPUogUCG
+              E29kCfvNTgK5VvnjnAidBu5JhNsczMslF4YIpI011pnbrFTe/bOn1PhdTwzqqsD4
+              p4MJuJRjHdIWk4BhW5mjrDExmQp+XOH9H51Tip1AJkCMq4gWwNOsj++FAoGBAKA1
+              Li+Iy75hqLS+/0kaOzgmWSx1xQ83h+TH8VKZb9zV3up3h8TcMWaMRJZkzc1TBN9O
+              zx7HQOfszKw86UjGzdb1qnq7roTJ0GEAhhwrFZIduc9aXqpo5YxRMvZutPCBYWCr
+              c5PzBTGrlwEricwhvLvaoxOJocXKaRZtf0Y0vHoZAoGAB2XI//3pCwKBU08jTduK
+              0yq7v1IqXD1WekwIr3J2dMY7NVOFkJLfN6tYgVSGfO41iT3TZ+nNyUFbB8lxaY0o
+              j+3g1jFgzo+q6ro3ByIXmXJZJkOzCi5p37SKYsb1UK6YpiOfZUJQ22MdXUjknmov
+              gFvq0/zrs+GtuVtKU19zc3k=
+              -----END PRIVATE KEY-----
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwD/fpoWARAn7NHiRHnKz
+              JAaglNMA+ve/+I2mjM75aR1n2670kUuqQdlHfP/DtdyGKmQOf7iQ+1mnlJwPWhEf
+              8isvD7BS96kb3h4vvaTBDmvbwm6aoq0JutR9qWWQ/j8I6VA/97nwlsHKF9BovIzb
+              IRqqlixzZTtWE8uF81E1o43BvifLvycj5SXTmc3qMB3sfrmzcgAzuyRrjbwtKqa3
+              TTySfzCjlzU4wgC1r7lm/PcoXoxRN5wYu4+D+WAuv64HRr+HQUA4iNFnUBlE8sdL
+              3bvCft4SXo4Pvlbi7ecaFxdDkQDiLgJCj43fei6p3e9gcxm8cPET7CeLkHJukM8i
+              yQIDAQAB
+              -----END PUBLIC KEY-----
+  testfsp1:
+    config:
+      schemeAdapter:
+        env:
+          WSO2_BEARER_TOKEN: "8f56911a-998e-3c9d-9c35-a22aa3f3b2e3"
+        secrets:
+          jws:
+            privateKey: |-
+              -----BEGIN PRIVATE KEY-----
+              MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCmgqfMU1SnIKuV
+              SNhLwqBe2UlpU2imXhf6HWhPSqAcHBWsNTZreLTyvI5At4BTw240DZK90wEbccR9
+              jbtdT4t1OO+QgPFJAIdxGXTnDnCcGkOw/R9VBMoaK5lgqpoLymXiV2YRMo/FWRn4
+              e+uiN01Ayhvs07P6l55U7eCWrk4DKy4tc8FH+Rkt/AWFk2kU3OuFSHAyaN9mknm/
+              gCb14dBqtVix92yczoMZdvAKCELkD1rGfs7joOvriAdbhe6/IcmyJSD2Rw7N9ooo
+              paV4oJMacPYZ8Zgrz+mS1tGGSAWHmEYTiBxhBxEh1TvRtXHk1lonbiTzMbLgFxLO
+              hC3D4xE1AgMBAAECggEADp/TFQMMoFEiQM5REPZbF3mGFRYaTuJcwL7sdmpbfZyJ
+              2sIhsXa8jcU5yT1UrAayGyhGBx4NLtfjJhPYrO1blkQV5l8s0fiV7L0Lo2+FPHCi
+              GV1h7xmolnvV0MOrG/X+1M5QTJpgPjkBKu3XWDv7MQGPSlGdsRi380WhQBq3B1gT
+              QvKIhoWhZby8R/5gj+H7W4KgWIsD4szwBLG+vQEDJU6Er5CF+CqOvLy572H/jpaN
+              gtxCdgZIlH8+2+cfZkbDuqd9p9+ZkLgWX4cKeE2XHR5hcSkFkNW8Vb8OiVc0EfEt
+              aAAGPBZufPRTXv2pXWXiwQ+z946RlWTCnob+yewPUQKBgQDTsHFcKj/9h+5shvTh
+              z46Jb+HiCYF5r7Kjlg2HgUsAVg1XpupDos6NzXNNS3OCW6ozVtxZWuxCP1lveTaM
+              Vp8j+di2pzEJEf4LDhXGJro5hPp6UmYV+5iVH978WhN+eNY4Q3DQcBM1dsWgCpf2
+              LjbtYViwfhzF5w14AfsAbMRoOwKBgQDJXUNaN5nNC1ysiATMBJ1ntceElw2ghNjz
+              cWtaqcruZg+hxfjPo7G6+gaKi4a+ukqkcBbs+2tAaMPhkrM3093ST18UxERkAf2E
+              osWCfA9LDahcIipA0ORgNq/FJNV3LGl88uVih5r4g/m2UMPOH54sPg7Tqt+BKpFX
+              wwkHlZ1FTwKBgHYkox+s9Mmqc4ZeS407KXHK32Ynp/sh87EYrbRSlGk7nXat0VCu
+              LFk3sIIS+gRm5DaC47d65yCR+ngcTjVEosyRREGsTdGiGQZSdhSAyK4RaTmbgx4B
+              rMaNYwWzv+11wxjjirLJ2e6cuu72+piKcl1JVxYpTCWnLf0sHcm+6l7BAoGBAMj9
+              TUgUrXCsAaG41sjpZk/pcq/WsmRhlcdQk25YglT5DGtWFubypmlSPQs2/5UKj4yY
+              0VlUDxaoO7TBYB++WvAcB3TL/tOv5OPqMKjwubcZd84W0AQIPZwHmeR2wpeEffqY
+              2/tADaA24x5meTsZ9iCFBPmj2hmsaoymATJP1T4jAoGBALglgVWhH87cUGaeygVR
+              xy8jcc69Cd+3YYe5EDz9GjCISZsH4/vvHsLew2UvKrLutgY9yUyd8nsWRkstSoRR
+              CH8GjkijIZzZYT1t839krat6M4h1iFndDVzPMdZcxVEYtlkhU7ytfX4E9UHAueb4
+              7NMdcKQVjjvp/3RyZG3AcMuQ
+              -----END PRIVATE KEY-----
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApoKnzFNUpyCrlUjYS8Kg
+              XtlJaVNopl4X+h1oT0qgHBwVrDU2a3i08ryOQLeAU8NuNA2SvdMBG3HEfY27XU+L
+              dTjvkIDxSQCHcRl05w5wnBpDsP0fVQTKGiuZYKqaC8pl4ldmETKPxVkZ+HvrojdN
+              QMob7NOz+peeVO3glq5OAysuLXPBR/kZLfwFhZNpFNzrhUhwMmjfZpJ5v4Am9eHQ
+              arVYsfdsnM6DGXbwCghC5A9axn7O46Dr64gHW4XuvyHJsiUg9kcOzfaKKKWleKCT
+              GnD2GfGYK8/pktbRhkgFh5hGE4gcYQcRIdU70bVx5NZaJ24k8zGy4BcSzoQtw+MR
+              NQIDAQAB
+              -----END PUBLIC KEY-----
+
+  testfsp2:
+    config:
+      schemeAdapter:
+        env:
+          WSO2_BEARER_TOKEN: "b4df2ad5-ee94-3a14-98a0-6ec6992d7ed1"
+        secrets:
+          jws:
+            privateKey: |-
+              -----BEGIN PRIVATE KEY-----
+              MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC9MFul77bSZ+Nw
+              pYXhqFa4/nmtjbzbvXfjU808wqH1nQ5q/3l1tV0hZla8HW0P1+wKmlEkscs1Ec/h
+              t8f+fgnk+j/1MP3UKBy7gL73zLRzxMeqG2Ap3VndpWzQobiohtAd5SYtxSpqlIOb
+              8dyfJGHvY8NfPXbeMLpWHsb9YXuDhM4LrcjyWmDacTtAoMu3Q4Uag9Nr5XEJ1W70
+              HftmuG2L9fNQH6bomFTNe6WVq9KQjhMn/9wpB6TbDeI6e6ea9x7rODy5R8PgFmvO
+              sMnAWtOOhrd/QHrqWbqw+LvD19Jd1VMPc0DbcrY7OG3jXStZVBFAZSSgfA8c1yiN
+              MUyl//+jAgMBAAECggEAPtvlZ5HpLamk8RWeEScMgXTT2u1gFaazQc3jQE/u3hur
+              4bM2mPyEkAdfxCsGxJ/aZn91fHqyaNSdPIMCqTUZdoILZB0+CRK20TnquYzDXD/C
+              k2t7HQ3VwQYozH0fTKdWWMh9UfHTsQvdWqAWzK2a+J4uGOPkLdkE4H5jYWbVUhHo
+              EPMvLH/28/0P0HryhmrtcG5ipnHbAc8R750W8h0zrfcAPOORaSe/WB86k5raPiN3
+              g1bXhXD8G4drewI3lfxCSTIctWpIHulZuV3OL6ndLOMnj83dwZKtXuUPPruAo7lu
+              bsKh5enXwvEWFtqbR9iEO4nxDMc9NjlG98EfW6UeYQKBgQD0k5OC1ZSOZe06vdSI
+              4zM95GEmwKfAv77IqafxUScl0upSp05bYFKC5rpi7N9G0ToHrJpz7uU36yrk17CV
+              BjUstVTuHKCKWDgnJr+a7rfPq5NEbj2EicTVTToOXt7gBJUrPD3oYMqvYAVikhdm
+              9ErC2/IzlXdGvE5UpBYMRBjZswKBgQDGBoHlJczY4vT8OaOtXMaZ6jmiWT6WrPvu
+              CIqhYKe515rGCPQdVQYa402yUFNWTU3vfehpn29mvDvVlbPwu0AjaBJ5xqXdza9m
+              Hl802DJFcbskTzj0MneWZu0CKXan2CmLt/eysV/nYuhaqdmv6MuDOdRKg5pNpPzH
+              6B4qcoVqUQKBgQDHH0OQ2KzLRqbfFWBtVnUIpeCG+YFah4IfwyjtasHxpIeMZZSB
+              BqoG0yzaj7m04XFagCd7zfsnDLrud8DXg6dVUAjml74JBIwrK/wBeuuCE1Gh/BLv
+              zm7Hrslem9TfFDwSaEiK4gsCv62CtCiDdM9NWF8Xqk/i8jrf5Hvi3qpQywKBgCdu
+              gEsa3dGKT/IxoBATW1CmvVdAoh/qzje157T+xCdTcXRhsApvNcoA3SXWrOGQfyZj
+              UfZGUy6H6Po81xnmj3z9akBpd/nUzUpuXdLuAgSmAvfV9qdZrUp7sFIv43rEpnE1
+              7tLcUxaGMXJsQ/atSmkVCNrVndI8OkGsTOVy7HIhAoGBAIiM3MJZLit2JitZ5WCk
+              qSQkLg1X+YGi9Xj4TzHUfFwOMm6doMXFFB4j+jh6AOfFY9e7MX+jHhhZaMl5m5Aq
+              ZiRpS69MEeXuhXYhGMNMqSCx4i3hboL+iaHd0ae5C3ZdRtbcIxdqzWP/J0Ie07Bu
+              yHeH7uRuoErJ/95HlqAmSkrg
+              -----END PRIVATE KEY-----
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvTBbpe+20mfjcKWF4ahW
+              uP55rY28271341PNPMKh9Z0Oav95dbVdIWZWvB1tD9fsCppRJLHLNRHP4bfH/n4J
+              5Po/9TD91Cgcu4C+98y0c8THqhtgKd1Z3aVs0KG4qIbQHeUmLcUqapSDm/HcnyRh
+              72PDXz123jC6Vh7G/WF7g4TOC63I8lpg2nE7QKDLt0OFGoPTa+VxCdVu9B37Zrht
+              i/XzUB+m6JhUzXullavSkI4TJ//cKQek2w3iOnunmvce6zg8uUfD4BZrzrDJwFrT
+              joa3f0B66lm6sPi7w9fSXdVTD3NA23K2Ozht410rWVQRQGUkoHwPHNcojTFMpf//
+              owIDAQAB
+              -----END PUBLIC KEY-----
+  testfsp3:
+    config:
+      schemeAdapter:
+        env:
+          WSO2_BEARER_TOKEN: "132e41d4-c9e0-33cc-b067-e46b6d13d83a"
+        secrets:
+          jws:
+            privateKey: |-
+              -----BEGIN PRIVATE KEY-----
+              MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCe6PSb+4MELlK4
+              tttfIAuf+aUUCdYLW9GpgmfRgFijWAbf7jl+LOK6EiDJHewSaMFqZAodHhzovgNX
+              zFiJSAdfDK85cZKXlg5an0XLYKeq5jRl3po3MpdW66DSl89bxv1g8nbw6sBWBA7V
+              Mo8zzatxkYlMUqK+shkC7WwtuiSaL6od31N9ooDsPbItsYbfdqr+2+0uJkZ9AWky
+              PDW4aojtBW7CtlRbS6ylbp6VwE/9J+wLr2++NV5fHn8ktWhJmjwS+4ylA37rxqYF
+              DRnclTqtaJ8XGGYXRHp0gMoasLlL8Cc6sMUIIn2a6Zw77qrPuN1DxGEdTiZ34isb
+              9vhcRPNdAgMBAAECggEAEaLLouli56U3IQY038saqdfMQ6Zjzuw9yeY4chPLF+Bp
+              GD5uuwYYPjZM1S/bnJ9roncVIu4jSeFCAGMkCvhSI8ZbRrDIEsgLMnDYD3OGqCeB
+              oTH3Q4ZQgsuxFC4s9oPlvaCrJUmoVuN/EezZNRKaTbGtNH88oz/4w/kS4cWgJ6Go
+              fAcm7BE638P8WUVAC2D9OKPzvkWd2spxh/SJ0mf2JjQp2wHmhbLNMMEiLK4r1kV7
+              phw3GHFl1JIhXMBoNWuQg6kPAXP6JndumhuQMPwdEl8yd0UtaKo/KXcrKu9PfwAl
+              UQxrAUdDfq3RbP+4r7e2WYb6QqimMh6CNccmoOLcMQKBgQDJw7memdqyXxBvpfTA
+              DOqrT87OdY0izLOsd5Ku5O7maj5vgRZdZqkIhfzXJC8GTAHghxOlBNiaWxLaxvtk
+              Wg6ilesVFXBCbOf1rufmJ41HrE/JBlujfO3wqLFjeV7g8kskB/8ojL+jtldVL7i3
+              8nMFqzETKXt9FqJ6xz1Wd3lS1wKBgQDJoDnITJGL+HNeUK4KnQLNjYCZjQv4o9tb
+              4FIU3ycMZrna0kUaNrZX+NVmqIJ8pEpZA0aellXthqbFBXvk2d805i2EMLg7DHJ6
+              mFVdUHNYYNLVvm+JkNLQP1C3UlgYU9aDCeXjhTVZbPLyzdkcIpLT2E5HXyRV74+Z
+              Fz8h3nRY6wKBgQCZhO2VuidnlWHiMfo6rxlX5E/NVDBhjDQiRJE9tj/43lpHaYdk
+              5hozvA+Ye5W0St0axGy0IS3WtPlxsfnSb5u3Ji9LSZazVD5i+ATHYMzk/j1vDgFo
+              MkSx2wmuUMlai8GU1ujVJ9MhdDqbPMZmYHoYlBuxIt0tXq2ekj8fraSI3QKBgQCb
+              Nd6FVHwOdfnJtu3jea64sZ83lR6MDwdEGNDXBFm48DNOQeO0JD4GRqVwW3Pno0kg
+              cKciWbRYHvmuXWRcbWOoAzEyu5Z2zkQqH65HITFJ7W8f33NZQMUoTjVCif8K6y8M
+              vMfdd6Pz7SywwMnLIMpKjg7kXldIWBwAy6Zr2iVSdQKBgQC24tqoJ28fKJTd6JS4
+              Z3WQZtoFpIV1A0vqNO6znTOLHKSN9nyJNMtTCj8fQgJ72eGKIX7MGZhVlBarqi4G
+              5U+3QkLfiDjoSEfJLDYg0ftaxEhnPO4h3SuN3HLGCJUY2i2eeYpDkTR8CzsF9Nrd
+              Yh6F53aEBtjyXhNPSVEaloISRQ==
+              -----END PRIVATE KEY-----
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnuj0m/uDBC5SuLbbXyAL
+              n/mlFAnWC1vRqYJn0YBYo1gG3+45fiziuhIgyR3sEmjBamQKHR4c6L4DV8xYiUgH
+              XwyvOXGSl5YOWp9Fy2CnquY0Zd6aNzKXVuug0pfPW8b9YPJ28OrAVgQO1TKPM82r
+              cZGJTFKivrIZAu1sLbokmi+qHd9TfaKA7D2yLbGG33aq/tvtLiZGfQFpMjw1uGqI
+              7QVuwrZUW0uspW6elcBP/SfsC69vvjVeXx5/JLVoSZo8EvuMpQN+68amBQ0Z3JU6
+              rWifFxhmF0R6dIDKGrC5S/AnOrDFCCJ9mumcO+6qz7jdQ8RhHU4md+IrG/b4XETz
+              XQIDAQAB
+              -----END PUBLIC KEY-----
+  testfsp4:
+    config:
+      backend:
+        rules: |-
+          [
+            {
+              "ruleId": 1,
+              "description": "Returns an NDC exceeded error response (ML error 4001) from the simulator when transfer value is 123 in any currency",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "123",
+                    "path": ".amount"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "4001",
+                    "message": "Payer FSP insufficient liquidity"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 2,
+              "description": "Triggers a destination DFSP not found error response (ML error 3201) from the simulator when a party is looked up by MSISDN 000000000 (9 zeros)",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/parties/MSISDN/000000000"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "GET"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "3201",
+                    "message": "Destination FSP not found"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 3,
+              "description": "Triggers a party not found error response (ML error 3204) from the simulator when a party is looked up by MSISDN 000000001 (8 zeros and a 1)",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/parties/MSISDN/000000001"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "GET"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "3204",
+                    "message": "Party not found"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 4,
+              "description": "Causes no response from the simulator when a party is looked up by MSISDN 919951935307 (8 zeros and a 2)",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/parties/MSISDN/919951935307"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "GET"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 5,
+              "description": "Causes no response from the simulator when a quote is requested with a note text of 'rule5'",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/quoterequests"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "rule5",
+                    "path": ".note"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 6,
+              "description": "Causes no response from the simulator when a transfer is made with an ID of 00000000-0000-1000-a000-000000000001",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "00000000-0000-1000-a000-000000000001",
+                    "path": ".transferId"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 7,
+              "description": "Triggers a payee account limit exceeded error response when a transfer is made with an ID of 00000000-0000-1000-a000-000000000002",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "00000000-0000-1000-a000-000000000002",
+                    "path": ".transferId"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "5200",
+                    "message": "Payee limit error"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 8,
+              "description": "Causes no response from the simulator when a transfer is made with an transfer when the value is 5678 in any currency",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "5678",
+                    "path": ".amount"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 9,
+              "description": "Triggers a payee account limit exceeded error response when a transfer amount is 7890",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "7890",
+                    "path": ".amount"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "5200",
+                    "message": "Payee limit error"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 10,
+              "description": "Triggers a payee rejected error response when note is payeerejected",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/quoterequests"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "payeerejected",
+                    "path": ".note"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "5101",
+                    "message": "Payee Rejected Quote"
+                  }
+                }
+              }
+            }
+          ]
+
+      schemeAdapter:
+        env:
+          WSO2_BEARER_TOKEN: "1bd894eb-7cc7-3638-a52c-79dbd5d31b3a"
+        secrets:
+          jws:
+            privateKey: |-
+              -----BEGIN PRIVATE KEY-----
+              MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCUiTKlov3OlSW2
+              myBlXse1MVP/zV3Du3GcBS6CHStbpV1928w5Glg/bJCnqYtjZMufomM5LY0rYNir
+              N42iP/CuBT67+U+49FY6mDcwlt7xw3s3lpYCcXQq9TxQNCgUrSCXsw0XzIxJevLp
+              eh4x8yWnSdWvxBObSjqB4cTv8KGrFjUp+YT3R5nUHdbXO78Ck21fh4hhogYBe6Ih
+              PlMmWQTYkTqZNmcQuBUpUYZOEuXqenti8k73zHrJe7oXOYcvsv0gztGaQ1Ugz8oq
+              BLcInRLGYYxY6cnpLaGZcuM36da842p/6rg9IYqXKoH/Hla6dSK2QJ/wY/fWVTBt
+              f1ugZW9DAgMBAAECggEABCMsM3vuSO5TnhoFFX3F31Cv78ynI3gZqohkasBoQEXD
+              bGmObzrCIYYjI2BwHwUkPN6Xl/SiXYZ1kpNaER5p1FcWD8NaiqLXsgsiYmqZbC+P
+              Q5WguRGy9C1fkDZbtXO7GC6nGzYZ5EQV9xXtOGP29Qlz99Dk4Or45TxGMY7I2gyZ
+              8QbajRyak2ZjV18Onw9+sp+OVbFRcOh93RMSPydm3ia8ebhgPMF7Ar4Rl1SBys+M
+              JRYZ+QGTZAe3X00+2TuBdbWORuhFmCvKREQaN8NtwMKFcNMMwMZp1rSk78Aet4yv
+              tgve8ZbOHxNQQxJ0tudvwDZoB1rsDITTIm2i8enTMQKBgQDJXVM4UT27CoeYWCj8
+              5vDBW/miexrtmcfiKcaifNt3ZmTHc13k/fnuUlvWWKveG1KN+p2E9XeolV7klSl/
+              SIVmqQGHxZXIDMPZeUYPJ2Fd48ycAlrRmUMIB8Zztg81+K5KKXuWMzGbMrvfyaUb
+              F0G1u7ank3fRStXGKUByjgEIkwKBgQC81my4xmlGNeyGeJEKl94qa27pcQ8a5ciJ
+              Z+Ae2wr6Hv/WTOwTsHork5C9t0OsippvmPVZvEbh0zHiDn30V+C2M4FIXQzXRVsK
+              sjxPISj7m4OXc07fGCZBEE8EzYDPyqwCb1B+Ld9tjQobh1cvhtok4G7e8ZQ8gAQg
+              ZadnWNKckQKBgQCMaiuR5fTp7NnI/hD26gOQkhZtmvKYJNgheYgt3msbw6ca/fPH
+              ruMNsRihS4vtgZf7sXsOMC2UvTRCqVEalPORNuD+UGW17lDT4aFdB9T5p9QSJgI2
+              jm0TuHhGT/ojZJoE1RB9GI3K74Ha973OOlVz6MXh7Q9sPob7e+CZATTvSQKBgHjp
+              ZyYMzR2Kq48SpfQ9d6B7t8G7hat4VCY/H89B+85ZiQDDsimNRzyduQDw1mElQmuQ
+              ahDyMASqwPb4xodsuVKQuggGpJE2NGwt4dXc6qvoUKLpzyekA+KHOcFegEsMf4Tz
+              l3ujjbtMopsr1pR06TrRhcw0rPDsGzhPPpg61GgxAoGAUbBQfGCbzAzj6za5jtKN
+              NHPMLjLwhDbIsaSJhlPwPZ5hsohsNTI9WtpkIyTSGCDfTnnnjqrRFjbf2jCc3t3g
+              ERyjEhSh3VslJu4rfeyCGeqqoiPTIeIX6U1TOhiL/agIZMrkHNu0iAvkduW8+lTi
+              07+fhEeDYeDcmO1R5kRZyF4=
+              -----END PRIVATE KEY-----
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlIkypaL9zpUltpsgZV7H
+              tTFT/81dw7txnAUugh0rW6VdfdvMORpYP2yQp6mLY2TLn6JjOS2NK2DYqzeNoj/w
+              rgU+u/lPuPRWOpg3MJbe8cN7N5aWAnF0KvU8UDQoFK0gl7MNF8yMSXry6XoeMfMl
+              p0nVr8QTm0o6geHE7/ChqxY1KfmE90eZ1B3W1zu/ApNtX4eIYaIGAXuiIT5TJlkE
+              2JE6mTZnELgVKVGGThLl6np7YvJO98x6yXu6FzmHL7L9IM7RmkNVIM/KKgS3CJ0S
+              xmGMWOnJ6S2hmXLjN+nWvONqf+q4PSGKlyqB/x5WunUitkCf8GP31lUwbX9boGVv
+              QwIDAQAB
+              -----END PUBLIC KEY-----
+  testfsp5:
+    config:
+      schemeAdapter:
+        env:
+          WSO2_BEARER_TOKEN: "547953df-ab2a-3ca8-acf5-fbd43a3f30e2"
+        secrets:
+          jws:
+            privateKey: |-
+              -----BEGIN RSA PRIVATE KEY-----
+              MIIEowIBAAKCAQEAnmLEEkZ3DKBd/PCQEXxUUGNFl7Jq7ockgihQcQUwoPE+P92z
+              Ubphm1RMI85a41ipnsXAWje1FzYNAbBYv+3cR/aIEqN/EUf+0ZpQlFJV0EuHTzP2
+              udRMPjeQci1alxZiDoIUkAPMmAX5zFxt0W0+GsB5e0N6OD0oAuYfm+wUpQ0Q7IFz
+              O4likNU7FbOZ5ZFXWF/MpGGSv/+PeC5WUhgEGFLpEneVTSJntdvA5PeBmWcPy7qQ
+              Mcrp3RsEXMsiaSJf2J8xm7pS7yGyycTC/muHSYF0NGqWQ12VVnbVl9zlzYH+P7jq
+              Pixqc1VZowQIGtZYS9cB5eA39rFwZM8b2hIq9wIDAQABAoIBAD5l1K8Keb5Ms5qB
+              v5BT9feRlIo17TC5pyVr8n0EOWs+f3KzygCJuAh0xmZY1q+4b2Kwr54bUkmprqga
+              rGw4rk7fji4hoV7SiU5USCiW413jU5RdeXcubzcXtt10hrr9Q3ZJwwYVqRW/TPE4
+              /L7EFfJ+H53zMIRVe5zgwlUwRdXb2C7MmZqU4IzwtK5h2y5aOrqNJrAWYn/Q75NK
+              BG6BCRmMkUIALrgDO1YXWbem2jZ7Ogr2odofQ+h07NBr44zIHJIvn+0zBufQr8gQ
+              bAIaYeS1WieP5h+kXP+9+r9kUIQhL41ZfTfvQQZLSCQXozNiGyBNIDLZA6ipacyV
+              QzEyaikCgYEA0CNOajqQYqPLc1Kfwnt8DopbTW2afUZa3Cd4DyDUx7Tsa8karhNa
+              wSMlVj7StfBggK/6hf0nvnrGii5CAtFx8MCrBJHYkM308QfQaGX7gwGwVErN6/MC
+              JdBy8eY2n+Tvvrt0F7RV7bgD2AyxvZj2tTRQmyquvbVbsRpRMHyJV4MCgYEAws6l
+              GvVY6G3DsZS1dArai8s7iytYQZDj4EdEU2IH4K1Pt1WVfe86Z86LOlyvunbKfNe+
+              wzw2Hz2itJGe94I8cVTZ1IcNMhfl9OH9CfM6G6E/1sJbdM5k42vFGgaDTZuxIxWl
+              EDyDvE1qXoDqscD9lfXNDUlifkEWG2ctBg/40H0CgYEAlL7mp1w7G4NbPotpyR9e
+              xTVzkp4lrim9fWBnmMgpyJ8v5sfN3WHPlf98C2rSQ1wKW21oaKFG6gXsJYxxeHoe
+              J6RJk/Z3AuVti2O+OR3I5RMr5NGg4GLGwid6Pg38M8D05SYqDVa/oifD93769zh9
+              93nvsTSLtOALK0JXi4M00+kCgYAwHAqIWtknJZxzqa8aRmfsqDc/SmgUYSz1wYPt
+              N8OMSCDsvPUbUc5Rvp+BvUwkt5uQM1PIMYGIO5eIEoJ4y7ATqQnWw7eNjHtc+8ab
+              A3dxRWRXrE4bzbD6vS3DHKKmsvGPIZRPKzK5eUDwr9PGLEw0Ea0fP+VUGszT3aov
+              2hfvnQKBgD67GPXCJWvNz6KPloDzaiUpEAJ4b8rBjOgtAQZT/daRrhtXRJ9FBrog
+              yyibSnXQC5Xto8AZVWsWiGVdkwNVGV/R/Gj4rhMuTbxxomwZTzpiF4caHv4CD7mr
+              L5wgXQrxzSgl72eNG56E8sTBYW2Nhq8gXrIKfyMGQaO2CY//FQYJ
+              -----END RSA PRIVATE KEY-----
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnmLEEkZ3DKBd/PCQEXxU
+              UGNFl7Jq7ockgihQcQUwoPE+P92zUbphm1RMI85a41ipnsXAWje1FzYNAbBYv+3c
+              R/aIEqN/EUf+0ZpQlFJV0EuHTzP2udRMPjeQci1alxZiDoIUkAPMmAX5zFxt0W0+
+              GsB5e0N6OD0oAuYfm+wUpQ0Q7IFzO4likNU7FbOZ5ZFXWF/MpGGSv/+PeC5WUhgE
+              GFLpEneVTSJntdvA5PeBmWcPy7qQMcrp3RsEXMsiaSJf2J8xm7pS7yGyycTC/muH
+              SYF0NGqWQ12VVnbVl9zlzYH+P7jqPixqc1VZowQIGtZYS9cB5eA39rFwZM8b2hIq
+              9wIDAQAB
+              -----END PUBLIC KEY-----
+  testfsp6:
+    config:
+      backend:
+        rules: |-
+          [
+            {
+              "ruleId": 1,
+              "description": "Returns an NDC exceeded error response (ML error 4001) from the simulator when transfer value is 123 in any currency",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "123",
+                    "path": ".amount"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "4001",
+                    "message": "Payer FSP insufficient liquidity"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 2,
+              "description": "Triggers a destination DFSP not found error response (ML error 3201) from the simulator when a party is looked up by MSISDN 000000000 (9 zeros)",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/parties/MSISDN/000000000"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "GET"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "3201",
+                    "message": "Destination FSP not found"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 3,
+              "description": "Triggers a party not found error response (ML error 3204) from the simulator when a party is looked up by MSISDN 000000001 (8 zeros and a 1)",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/parties/MSISDN/000000001"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "GET"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "3204",
+                    "message": "Party not found"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 4,
+              "description": "Causes no response from the simulator when a party is looked up by MSISDN 919951935307 (8 zeros and a 2)",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/parties/MSISDN/919951935307"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "GET"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 5,
+              "description": "Causes no response from the simulator when a quote is requested with a note text of 'rule5'",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/quoterequests"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "rule5",
+                    "path": ".note"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 6,
+              "description": "Causes no response from the simulator when a transfer is made with an ID of 00000000-0000-1000-a000-000000000001",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "00000000-0000-1000-a000-000000000001",
+                    "path": ".transferId"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 7,
+              "description": "Triggers a payee account limit exceeded error response when a transfer is made with an ID of 00000000-0000-1000-a000-000000000002",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "00000000-0000-1000-a000-000000000002",
+                    "path": ".transferId"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "5200",
+                    "message": "Payee limit error"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 8,
+              "description": "Causes no response from the simulator when a transfer is made with an transfer when the value is 5678 in any currency",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "5678",
+                    "path": ".amount"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 9,
+              "description": "Triggers a payee account limit exceeded error response when a transfer amount is 7890",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "7890",
+                    "path": ".amount"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "5200",
+                    "message": "Payee limit error"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 10,
+              "description": "Triggers a payee rejected error response when note is payeerejected",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/quoterequests"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "payeerejected",
+                    "path": ".note"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "5101",
+                    "message": "Payee Rejected Quote"
+                  }
+                }
+              }
+            }
+          ]
+
+      schemeAdapter:
+        env:
+          WSO2_BEARER_TOKEN: "b6641546-8c63-3edf-b9d3-d6fd5ababd42"
+        secrets:
+          jws:
+            privateKey: |-
+              -----BEGIN RSA PRIVATE KEY-----
+              MIIEowIBAAKCAQEA1Sp1bqY1FyLcTJL/xvw3KA3sQiAK51vct1gkODCMvp2cvcgo
+              q/4uabUYIGqeXo5u2d+tPXkPQhkBwfjGtDz/OkmccOece0mfqu2IxMu/ZyPft6Bq
+              +jx+CCkTkMMH2bVBv8sLI8AlaqDizqlWULYxBIlugPPt5Ux0jntMe2G41sXgoUdo
+              IwO3852UQYh8sgkRIcmSfXnGnYtqweeX2OSKF3odeozHNy2QR6uhCgGYiVMmjnNT
+              Cjik9xjKGrW8CWFeQdwLDzk3Mpuj3F8KZaA4q4WXMi68LuFkEhNoAb1XUV1FdJls
+              qwjBlwKq67xfru7CuTJOc1oq76mZZkEvOLoonQIDAQABAoIBAFImp9U51tIQzEfy
+              iwJ75yHXo8qkIK+jNn+uR18kTsmTYnm9bvdB4U85zI+Jp3kXeV8cFd7QDfJSQtwn
+              bSS/MTmcbt8QU70r1Y4BNylowF4WdDyHZVMFBylL809h6l+bvDgXHzbq8UCTunUc
+              y7gVTvTJpj2qRG+PNIhIumP+eEbEjZ6QD+Q22XpnDMqYiDrcaWN5W9QMXfgjCZgI
+              sdKd4TRVZlBZFVKJ0ceKRjPskLEjcjmdov0nGNMRkUg67gmI9REL7/LKwhD609lP
+              WWBTyHUH1E+sXC5gDhIRFDj1vD2ga9TdW+qm0QTLhqL7SYrd9LePO0ulCzOjNFPq
+              HjKy3v0CgYEA9C/Otucb98mqxIofasD1/b5FwFQFKqoIfa2p4KbCNz62LxMT9lGP
+              5EqDgB/17tWj95SwAQkaPEKNpAcdVAg5m5bHsGTRFaDWk47YCsMNEFuwBk5yZ5XY
+              9SGLhPtEjPGY9Ii3BNq5jVPaYfcyY20fIFYqNe03iEDZ30R9/mIZ6zcCgYEA33p3
+              E3zZFlX+SxU5YgVMkEC7PY6Js5z7ZJG/87asQOJJcZL9tboHz41Bxla0J31/NQF8
+              5ACsBDzLkX9ywlmxDc4RecPZwUL8OXaDt769mSfYeLNR/LFQ4Ss5yZqywVGzqIhM
+              VkdWO0pWj4kr1B4jXDtR78TnI85cLeRGL0yyfMsCgYEAnnfEHBjBor4Cj8ffeaU+
+              PuzTUWx1aems1vrz6vHtynJtQwGLi+gEjK/6xRR4wwVsgojA6/sfRooeZ5uiYd1w
+              nVNtxkC3G+UkO+CQvfM1MC+Afac9QZISmYqqg6OZKirEC7YJqCHWFyya5cbJsZKo
+              h5DDlfmbd1Y2zlkhtwutLGMCgYABGfZqRyw+uu/E6Pbeb84/y8HgfMpa80Qd68X5
+              aoYQz8yy3ZmYgrE1KaoQUy8SHsE4vqgh64rtfms2bV1gbda8ja5yXi+9jxn1Iotl
+              pXADyDl95sxZpXoTkgX342ZMI53yD7HonvNi2WvxyyhHJFriQnyV5O+KsqKrqztZ
+              UlRy3wKBgAtdfSBHVLdImeLPWGiOLTQ0AbjqVT6BjNBMdvcSXwOUON62g6FEPdeB
+              80hKejQNI8QYXh4Z543Dio3X6corq65no0ZZ4NU2GEn6Y4bLwsQmemEJnd0i3peg
+              wiE/6BxycKJqPrMSP0PzNoFYs1sROJeeug5M4BGGh9dqf6c0xbRS
+              -----END RSA PRIVATE KEY-----
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1Sp1bqY1FyLcTJL/xvw3
+              KA3sQiAK51vct1gkODCMvp2cvcgoq/4uabUYIGqeXo5u2d+tPXkPQhkBwfjGtDz/
+              OkmccOece0mfqu2IxMu/ZyPft6Bq+jx+CCkTkMMH2bVBv8sLI8AlaqDizqlWULYx
+              BIlugPPt5Ux0jntMe2G41sXgoUdoIwO3852UQYh8sgkRIcmSfXnGnYtqweeX2OSK
+              F3odeozHNy2QR6uhCgGYiVMmjnNTCjik9xjKGrW8CWFeQdwLDzk3Mpuj3F8KZaA4
+              q4WXMi68LuFkEhNoAb1XUV1FdJlsqwjBlwKq67xfru7CuTJOc1oq76mZZkEvOLoo
+              nQIDAQAB
+              -----END PUBLIC KEY-----
+  testfsp7:
+    config:
+      schemeAdapter:
+        env:
+          WSO2_BEARER_TOKEN: "eccf771c-31ff-33bb-8822-01dfa9f4384d"
+        secrets:
+          jws:
+            privateKey: |-
+              -----BEGIN RSA PRIVATE KEY-----
+              MIIEpAIBAAKCAQEAsUmholFKGMJSJqFIGH6EMIphf5olkVLS/YumYiyTKDe2aRul
+              ucY+wMdyFRRa5Er03Tyr66EpkZ4fuGNUlsukWDUbVr1QoFI8bNHU417zlZIw9ngR
+              I6OD3SHNYIfaCjhcsJXPrQSd1PbLgmbO0FkDP6cJxfVPnbFVyKuxyqJ+L8+QtKg3
+              4QhOIUh42+irh0AcqD6QtAqUUpudPVPwpku8hBLIn8UB+LywhoiPMHxhFHyIl7Sm
+              DaQRG1lHxPj+VUGG+Nd9WGPbsGrqEE3H7+lRgpY7i4utt6RQSbxoywiLKerx7O23
+              1iih5NAvcJ5spUxCpCLd2YAc/M4GPuhMyF6xiQIDAQABAoIBAED/2f8FBsGlHTGE
+              mEZCvHx/f9ek0HlDgI/tD4eXCC0KoBpRRKWkBYXwmecYm2pwAO7MO8wcPn1hGAgm
+              gvD2oL6mWeunZVQiUn0jQYZLXctM2h7DTqVeYg5FQmNN66crmvAzPP0WYDegdGTP
+              BKxmtkY0G+U0V4hdaDI2oOzGPrWQK7xPDaVqjtYQNQznhgsHR/lJuUns5wTe2Mju
+              EdSMvZIwXd+0ou9iB9BUWGlSe7XAOV5QlgtiQVXHUG0KY2tge4fEaXXAN2RZjQE2
+              0TjkI8X36ckgHU7Q/3bsy2cuQ/PDdammxGV5259XyaKMI+J/9zw6/AH9LVcNkd9E
+              c2KblcECgYEA5XGI68kRWC2qeEOjBPAHiAUW5KIbaxxvasq3a01tU2jKwYbIXXV1
+              AGDIsrZ1Gy19QTRH5Wqhtr4FxiT7aZI3N836/E/mXaGRP6lvkZ6cjFBgtZKdH+US
+              HJZUO+SnG1p1ED/y5MvD9sbcJ4bZSn6YBuaBUUaELZyc7QRPoJsbMX0CgYEAxc60
+              phh5UsPEwCVpzRbYO/zuSEPQuPCPLbg3kxWibQnqZcqsPSqgYeuTXHrvZYWIbfjn
+              fEeMzssvjoi7/RyqLVOwYeZWDz93VXq6upqLPVp8RSQVI5cCuqB7dMCarjj8fkf5
+              GQ7CPliD5TK2GzgX5VqmnjULMva5+W1/tqDEPf0CgYEAtn0HtulUJzsi88Zv+XRj
+              uRa7L5uTjSyvnVOgcPLDOm0FnsjxwguyxFs2JZYjLDuQ/PR1Ho4iEvOuKfuuDzih
+              PHxS3K07/0qK+QRtXXe28Y7YbHIxEHYkYqJaWsyw8HuQ0hzatoku0q812SZS2wI3
+              Ln3VauxYIuMGmSktoALdrQ0CgYBXQf3yny0102JBmL95VzCAFe1PN4slagjfFDp/
+              ybVjAFLEIImmWd1yFKdmzlw4npU2XexPqIh22K7b43l6CGERqa9PIHqqM0cDECa7
+              Fl2B7R6QqYAhuQXdKdoMAMK7RCwt0LYT1azeL9HPE3W9wBradAi4FZIhIzGa1DDY
+              cUbgSQKBgQC1p/Bke9Mrvy8Eq8VFPcgz2AN3IXOzJDv3Ce+zSDw9RJnIIcIgiOEq
+              DBINwMNRFEXh060EklevHkPP3VLljy0vTF1YFBmOCdk0qSDiex/RqAROM3D5LGWz
+              qGFe/uKVcUEv9x5vb+rCFqemzYesKhsK0GOC5BQ1oZmmE6PsNKMLPQ==
+              -----END RSA PRIVATE KEY-----
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsUmholFKGMJSJqFIGH6E
+              MIphf5olkVLS/YumYiyTKDe2aRulucY+wMdyFRRa5Er03Tyr66EpkZ4fuGNUlsuk
+              WDUbVr1QoFI8bNHU417zlZIw9ngRI6OD3SHNYIfaCjhcsJXPrQSd1PbLgmbO0FkD
+              P6cJxfVPnbFVyKuxyqJ+L8+QtKg34QhOIUh42+irh0AcqD6QtAqUUpudPVPwpku8
+              hBLIn8UB+LywhoiPMHxhFHyIl7SmDaQRG1lHxPj+VUGG+Nd9WGPbsGrqEE3H7+lR
+              gpY7i4utt6RQSbxoywiLKerx7O231iih5NAvcJ5spUxCpCLd2YAc/M4GPuhMyF6x
+              iQIDAQAB
+              -----END PUBLIC KEY-----
+  testfsp8:
+    config:
+      backend:
+        rules: |-
+          [
+            {
+              "ruleId": 1,
+              "description": "Returns an NDC exceeded error response (ML error 4001) from the simulator when transfer value is 123 in any currency",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "123",
+                    "path": ".amount"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "4001",
+                    "message": "Payer FSP insufficient liquidity"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 2,
+              "description": "Triggers a destination DFSP not found error response (ML error 3201) from the simulator when a party is looked up by MSISDN 000000000 (9 zeros)",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/parties/MSISDN/000000000"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "GET"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "3201",
+                    "message": "Destination FSP not found"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 3,
+              "description": "Triggers a party not found error response (ML error 3204) from the simulator when a party is looked up by MSISDN 000000001 (8 zeros and a 1)",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/parties/MSISDN/000000001"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "GET"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "3204",
+                    "message": "Party not found"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 4,
+              "description": "Causes no response from the simulator when a party is looked up by MSISDN 919951935307 (8 zeros and a 2)",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/parties/MSISDN/919951935307"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "GET"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 5,
+              "description": "Causes no response from the simulator when a quote is requested with a note text of 'rule5'",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/quoterequests"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "rule5",
+                    "path": ".note"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 6,
+              "description": "Causes no response from the simulator when a transfer is made with an ID of 00000000-0000-1000-a000-000000000001",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "00000000-0000-1000-a000-000000000001",
+                    "path": ".transferId"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 7,
+              "description": "Triggers a payee account limit exceeded error response when a transfer is made with an ID of 00000000-0000-1000-a000-000000000002",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "00000000-0000-1000-a000-000000000002",
+                    "path": ".transferId"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "5200",
+                    "message": "Payee limit error"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 8,
+              "description": "Causes no response from the simulator when a transfer is made with an transfer when the value is 5678 in any currency",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "5678",
+                    "path": ".amount"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 9,
+              "description": "Triggers a payee account limit exceeded error response when a transfer amount is 7890",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "7890",
+                    "path": ".amount"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "5200",
+                    "message": "Payee limit error"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 10,
+              "description": "Triggers a payee rejected error response when note is payeerejected",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/quoterequests"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "payeerejected",
+                    "path": ".note"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "5101",
+                    "message": "Payee Rejected Quote"
+                  }
+                }
+              }
+            }
+          ]
+
+      schemeAdapter:
+        env:
+          WSO2_BEARER_TOKEN: "fbd325c8-4adb-3ed4-b7aa-4ede8abb88cb"
+        secrets:
+          jws:
+            privateKey: |-
+              -----BEGIN RSA PRIVATE KEY-----
+              MIIEowIBAAKCAQEAtmMCKjs/TKqzNNvAl+157F3qSnXSBTkuHlnrhqcyMlN3qC+l
+              Nm/4L7J2BZzgTiTgf9xKuCDjW3vYkEAcGJPTyb62rqxXOB4yt3+KPM0FacujscOL
+              8hVzcbMxibNZ/FuTJiE+EWJdrdBP2BsC/2nqyWZq6CySlcllOrAluZRpeqQH5twq
+              5+85AAlxHNzJO/5RN/5mSXTWh5Fj8AODTn0pcfmAmLhC/fU6waZ8etYrmtEINC53
+              UpQ/tjHzt1YIMRE2++u5n2EDPJsmTB+VLWO/il/OyZMuLfmPy1P8qqGre85KL01h
+              rdofK+OoefCqPOKRpszmBvPtdTCFXMUbcG2fLQIDAQABAoIBACIdDrCbeFF8tBw0
+              5icEkgN15Xab5vZ3JXsj0nvTFf53wi/BCaPO+ZriRFT0bLfxCdSgfZFHBX99AJqq
+              gxbNv5VCiKTPM1kZvN65ij+pEVQidLGxI6HaBUfE/oUE+NXMww8ktJlHzsHN7sE6
+              /CqNww58i451l81QaBC8FbJKYhg/+Shoto0mqyYzQTLJAbuVvFbL01DVngp87UIB
+              PlDOf3ZmTDAJ0Jm9cU+5VX49HlTAg/QzQb/fwQ7yjf7ytwlFY96r3Gtn2+quMmvS
+              RsnM2OYOZ0wKJRlhLYOYmx/7DquwBi5BYTphZsFeGf6qhe1XqB5LsO9PqleiGLYT
+              2eFoSAECgYEA3M6i3nPsC6JChn5SjpjzM4t4BDxe5AZf6ieUWKVlVAV1lDej8pi+
+              6YDbtHMgXXTFjFLFZx+wEUtLD93yP9xVY4EnduIjkYkzUro9H4EtpUTqgt9AVgGW
+              u06+Su/lxP7WrSZY1ZFMHxYzBwQwnxtw9BSTXk9UexwPlZhLBkYMywECgYEA03S+
+              epGPIz17PogbHRgXGuf1UXSG9HcwuqwFZtkcLAiGtafAeJYJ7+hlbNusWokk6AEr
+              yivCXvrYQFXYcVPDnO2thAn2k7BwCCf8jWVLuWQW1FKMS1bml2edR/V/qAdKXB7k
+              mjv+SuBVYSl4RcbQhm6u/+gP2nNERALeE+Ld8C0CgYBLDWGGw1hETA7YsC9XkN15
+              c7qDlhGa6B/J81IVH4LloEVq786mMw0RSV9kYo1ptrs/CxNWDgtGlZUZ+5LP6hCM
+              FeZYHl2ApmXvhKYqAzqEpnwfp8qycS/O0uETj59F6mkFybcAQLbjCiSmCeKM8kLe
+              c+/zanuIrO0PKAi4RS8sAQKBgFzHRWgcA7TPngqyx0q9ri2VBvMlcK1EurG9FmWo
+              7w528zwzDWUbV+LWkeHwhK/4qqPNF7yN9Kud3lJkGCKpQRPSySY9BN6KNK2vdcVI
+              Y7BFNSsVyQ6pY2WdBcpz8f30rPC8cUsm9Y0+3tdRzb632/iQCeKonIQZvSMmKvCI
+              wx5FAoGBAMFt3KoDWFE1cOYoaFYfiC6mQ2xQlos1cAFERHZl8RNdQhA+Co4WQYYu
+              KYIuySHYZu5MdgOgs199p08hWdG4kl9KlNv5oucN5XhJNlBD7uZFVoF4m7GOpFEw
+              POKrtI4hV5pX0A1QPUT42+fIh0PTYizumZSjcsey6/bK4MbviDRB
+              -----END RSA PRIVATE KEY-----
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtmMCKjs/TKqzNNvAl+15
+              7F3qSnXSBTkuHlnrhqcyMlN3qC+lNm/4L7J2BZzgTiTgf9xKuCDjW3vYkEAcGJPT
+              yb62rqxXOB4yt3+KPM0FacujscOL8hVzcbMxibNZ/FuTJiE+EWJdrdBP2BsC/2nq
+              yWZq6CySlcllOrAluZRpeqQH5twq5+85AAlxHNzJO/5RN/5mSXTWh5Fj8AODTn0p
+              cfmAmLhC/fU6waZ8etYrmtEINC53UpQ/tjHzt1YIMRE2++u5n2EDPJsmTB+VLWO/
+              il/OyZMuLfmPy1P8qqGre85KL01hrdofK+OoefCqPOKRpszmBvPtdTCFXMUbcG2f
+              LQIDAQAB
+              -----END PUBLIC KEY-----
+  testfsp98:
+    config:
+      schemeAdapter:
+        env:
+          WSO2_BEARER_TOKEN: "c4f74f6e-d60f-3fd1-b4ed-4706f9290382"
+        secrets:
+          jws:
+            privateKey: |-
+              -----BEGIN RSA PRIVATE KEY-----
+              MIIEowIBAAKCAQEA4izctZlj8+bnjkBM02yh8sOZjcxE+t81DHNhtXNGdzxzhuUS
+              HtNtVWEYVbeKlcwhRZ2EqZYs5FPLOKdhYZC0Bwuw6b7WunRuUrf6yxpRfSIIQsHK
+              /H+fW7kRyBys3O4hKDBojOAOeJCg86r3JmTrcsxp0DNt9gLENhRNjrrDbGf8zVnN
+              0/Mydd0ZaxZEqFCZXUcJ2g0IlgNTqRfVjnTqEpRAAk0rEPSlrxHdHpQGkJ5q5DtP
+              DIrcUblshKau7zkJgvTnr6GQpwzOU7j0f44cFUfnj3+Bb532aaPHhKpx0mTrj13e
+              NoN3Rpu/hKwqmFRPGLwwSo6b6eGFTb0uP0TIPQIDAQABAoIBAQCYfZrJLYRAe5v/
+              QscJfSKrZMlw2xpe8oL3xAtKpVALMEzL1EIlWnNKr04S7M6ZNKnyH8PD+yaFQyGv
+              LtrvRvq6DV3YGvz3dWy0hKqoqTPr5DghmjtbhkhRNTQR8ZNy2XKtgAXdhWr8SrbZ
+              0pkT39MG8V8eKq6mwTK9K28nHjCIM0ceb9pm9RSPuNN2jyYGpVBo/4uHQmaGqll3
+              /bFHx6p8QeIbgh4hU+72UOPaNOpjj+yVNU3RYm4ZN1IABHahbTPkYdtebiUzKY6Q
+              VXgun+pjvIHSllWQRkB/bd6Bajt/U5uLPGnvEH/wkiLTQ0KLCNr7fUG6D1Q2Kise
+              hHx2T4vZAoGBAOJB8j7fwrEWRsebTkiIhHPJ9tyjMjsViHfpOqRckisL4VAKsY+V
+              vddnK2785UHfA/yj864sG+CU0cVa3X02y5iLXY5Vh1y8oYW2zAe1MnfH3TFCllq9
+              D+xvMNIGE/Yb1zjlhaAlli+Tl6pVesFhdaxGhICWmHwbiz+onayhufAHAoGBAP/o
+              JPANKcyPKyQaXZkEvqcnwmbnNw0WVZ2jnm1zyg1Mo2WGVAu4SnHYzRll9nHFjg30
+              EfwH1zzuOWIhI5hfqFURMG5tgKA0KxpMgkWPkxrO/kqiv8iI7x0Tf7SZA61s7rbI
+              nvt/6IX/mLS8BonvdcsV1xBPmNUpvG44VNlTxuybAoGAZ7yUtP8i5M6x5RLv8ZGm
+              KPCQnti0TyKwT0o/+Nv4qIPp6ij9ADhHsls7LsgE1Q7LZSpGr7TJk06oXzQqGR7m
+              eipr2racOYjDBeup4F7TpNeeMte02CWXB3Bzkdf3jv90zkFt4t9Y3Ldu8kn+3msw
+              6KvsVIi3oS9/yNAmeuArwEECgYAVvuNMpsGziULwOXFUrGuLBrzlQ6aQ7SHvWFUB
+              FgLIaIfF+8kuicWBsRuUme58Mn5kvyW8Fep7Wf70UL6WlyJVwDUuXQ2+D1DOVkwH
+              nzCv6YEAVJ4Za1FuVhbXAN2oIgaS769azb6zjEmsqgGgPQH0dPGmiC0DiB1j/FNx
+              eEYCGwKBgH6CwGBFDh3OmQ1EdQIgjLjPnYwH1Qg50hz9vEf9T1aArzY9oPhhuXmh
+              GbwRnbXRSBJNaF9HwPZ7MRSjG568Oy5J15y+2Lq3ZF65UY9M0hr7sKxoDjddG6+o
+              4VLft3cUfijTCpHSoQmV15rZgNgNlCZtf6wN9F1u2tn5oPcsBWp2
+              -----END RSA PRIVATE KEY-----
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4izctZlj8+bnjkBM02yh
+              8sOZjcxE+t81DHNhtXNGdzxzhuUSHtNtVWEYVbeKlcwhRZ2EqZYs5FPLOKdhYZC0
+              Bwuw6b7WunRuUrf6yxpRfSIIQsHK/H+fW7kRyBys3O4hKDBojOAOeJCg86r3JmTr
+              csxp0DNt9gLENhRNjrrDbGf8zVnN0/Mydd0ZaxZEqFCZXUcJ2g0IlgNTqRfVjnTq
+              EpRAAk0rEPSlrxHdHpQGkJ5q5DtPDIrcUblshKau7zkJgvTnr6GQpwzOU7j0f44c
+              FUfnj3+Bb532aaPHhKpx0mTrj13eNoN3Rpu/hKwqmFRPGLwwSo6b6eGFTb0uP0TI
+              PQIDAQAB
+              -----END PUBLIC KEY-----
+  testfsp99:
+    config:
+      backend:
+        rules: |-
+          [
+            {
+              "ruleId": 1,
+              "description": "Returns an NDC exceeded error response (ML error 4001) from the simulator when transfer value is 123 in any currency",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "123",
+                    "path": ".amount"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "4001",
+                    "message": "Payer FSP insufficient liquidity"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 2,
+              "description": "Triggers a destination DFSP not found error response (ML error 3201) from the simulator when a party is looked up by MSISDN 000000000 (9 zeros)",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/parties/MSISDN/000000000"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "GET"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "3201",
+                    "message": "Destination FSP not found"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 3,
+              "description": "Triggers a party not found error response (ML error 3204) from the simulator when a party is looked up by MSISDN 000000001 (8 zeros and a 1)",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/parties/MSISDN/000000001"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "GET"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "3204",
+                    "message": "Party not found"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 4,
+              "description": "Causes no response from the simulator when a party is looked up by MSISDN 919951935307 (8 zeros and a 2)",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/parties/MSISDN/919951935307"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "GET"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 5,
+              "description": "Causes no response from the simulator when a quote is requested with a note text of 'rule5'",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/quoterequests"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "rule5",
+                    "path": ".note"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 6,
+              "description": "Causes no response from the simulator when a transfer is made with an ID of 00000000-0000-1000-a000-000000000001",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "00000000-0000-1000-a000-000000000001",
+                    "path": ".transferId"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 7,
+              "description": "Triggers a payee account limit exceeded error response when a transfer is made with an ID of 00000000-0000-1000-a000-000000000002",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "00000000-0000-1000-a000-000000000002",
+                    "path": ".transferId"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "5200",
+                    "message": "Payee limit error"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 8,
+              "description": "Causes no response from the simulator when a transfer is made with an transfer when the value is 5678 in any currency",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "5678",
+                    "path": ".amount"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateNoResponse",
+                "params": {
+                  "noResponse": true
+                }
+              }
+            },
+            {
+              "ruleId": 9,
+              "description": "Triggers a payee account limit exceeded error response when a transfer amount is 7890",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/transfers"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "7890",
+                    "path": ".amount"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "5200",
+                    "message": "Payee limit error"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": 10,
+              "description": "Triggers a payee rejected error response when note is payeerejected",
+              "conditions": {
+                "all": [
+                  {
+                    "fact": "path",
+                    "operator": "equal",
+                    "value": "/quoterequests"
+                  },
+                  {
+                    "fact": "method",
+                    "operator": "equal",
+                    "value": "POST"
+                  },
+                  {
+                    "fact": "body",
+                    "operator": "equal",
+                    "value": "payeerejected",
+                    "path": ".note"
+                  }
+                ]
+              },
+              "event": {
+                "type": "simulateError",
+                "params": {
+                  "statusCode": 500,
+                  "body": {
+                    "statusCode": "5101",
+                    "message": "Payee Rejected Quote"
+                  }
+                }
+              }
+            }
+          ]
+
+      schemeAdapter:
+        env:
+          WSO2_BEARER_TOKEN: "55a83759-86bb-33db-8896-b12e3c08b7d4"
+        secrets:
+          jws:
+            privateKey: |-
+              -----BEGIN RSA PRIVATE KEY-----
+              MIIEowIBAAKCAQEA5vJ5lR70A4qs44hbqIUQpPCkecvCt+TScIpu9r7nGxyz6GUI
+              OU4BWVpdDkdVUs8G+6zfEY1BmuOSi5iqIjgbLZSBny911iP7h6KEbe31LHs7hTfD
+              5gpPRrMqlGzd/QP1B4Wd4+6xKN90m7I0AllfSKRfm1lJgqpbgMPe4OlwoXKBACrT
+              pBz/d1CMPNmoNsd/vUZ7WQ2XFmO2BcDmZFOQ/Q5Xkbs2nWyMegXhwK7iBM7Hh6fl
+              rJndr+7lNEdCM5fK1iLDvF/tPPGOtbhMtm8eXd0zMfgbHmHoi/TaKo6jrLPHz+rc
+              IWRtpv9sCCHe7odpKu5EIh7euJNTOW972sKccQIDAQABAoIBAQCDsxDMjhs/Dczr
+              8C282y0TsjtJTX5cGfw7u2XuBg2Ks4KQ61SWQTqZtuNMKjepAnCMAxguTSx1ZIOE
+              Yenbm7077+0/VvROyrQ8s9vrSIDA/gGCRbvMKmLtAW0tuSuahrAruvHAMrUKhutb
+              gnMQR+EDbuEqmO9HuVh3BLvL7LOTDMDbXjsk07sRHVdb8oAEaRQRd+1BCGwX02bf
+              YKqf1UwTQsQICaa86JP2TexnOdiMsxzAFBrnpAy4JFCm9rnFufztt1EuZ3kfV+lP
+              mp/iNVwpwmvYU4teoxAJe9SUVUoR/oPuslCIY2rP2mRoUaIt5OWtHgIj4RcqhpY8
+              o+0uW5FVAoGBAPNfW4m2hJlzMdBMC3ClyAjodb+p5A1XE+y7fGXyXaANHXYBI1Wr
+              7VpuQ8GDCtyjAC0dNbkKAAvkiwy8reWi8R/jI49MYwtJYI/HzFbIBQTzezBrSbSJ
+              /kynztClqLVT3nGfICy10HPyheDjV+tSoPyoR1pBsCRNL9rVsfc8h0TPAoGBAPLu
+              E1o1t+iaXLjgdLQJMRvVflhJPs5Y1ZR1Z4LqHx+Id80Hv7SQ6x9zCNUOPqpErUhI
+              3LJcJnqg7y/bGP11WyE8FVEgaJDUabiXaIrsgi5My1ZKl+FjvshrHoW/RgurWYMe
+              DkAv80a1lUNdrv50n1iD+Ca2C0LRDlI7+4m2Ytq/AoGAPX0ENaEFk3eFSGlOIqHg
+              DlAdH9WeprgvcopT/bXkbcGiheP3t3d+unBNciDXp7MPIlbU8fFS3a5aa1doYDJw
+              1Wuf2l6kT3+0g98pA2v5yKxznWId9x0+QMPM/u4718Re2Too+OLezcyigpUt62iu
+              /+bMUEN0a1eNFa8UDbEfRAUCgYBxJw+Aj1DwWSYjPvlc+oMTUegdu1Az0RD6q4zh
+              X6fLikczCw7yTiYWagCNLKtnp8GGz9lsgpuxttByW/1R4Z3m5xOOzCeofigYQP4C
+              55LjegWkVe5Un583vx1icutveAqjlhZRM4R/RQkXbcWa5DtsgVvOvDCWmMWw7BuH
+              05pMBQKBgCyfbgBz7yhb0DD4JWVV4rKevutGWm9WrJf9/5Te0P+SumtKNDytwzbA
+              09xNztd9OLR85nljekJJ4ehJ4N08hVb8h7BJDj6D8jCmIWz2Q1EQQSGpCGkKlqRS
+              H+nzgzsedk98pHBRwAEwsc48r93EwiY7kKh8TJdh+ieqscLb71n1
+              -----END RSA PRIVATE KEY-----
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5vJ5lR70A4qs44hbqIUQ
+              pPCkecvCt+TScIpu9r7nGxyz6GUIOU4BWVpdDkdVUs8G+6zfEY1BmuOSi5iqIjgb
+              LZSBny911iP7h6KEbe31LHs7hTfD5gpPRrMqlGzd/QP1B4Wd4+6xKN90m7I0Allf
+              SKRfm1lJgqpbgMPe4OlwoXKBACrTpBz/d1CMPNmoNsd/vUZ7WQ2XFmO2BcDmZFOQ
+              /Q5Xkbs2nWyMegXhwK7iBM7Hh6flrJndr+7lNEdCM5fK1iLDvF/tPPGOtbhMtm8e
+              Xd0zMfgbHmHoi/TaKo6jrLPHz+rcIWRtpv9sCCHe7odpKu5EIh7euJNTOW972sKc
+              cQIDAQAB
+              -----END PUBLIC KEY-----

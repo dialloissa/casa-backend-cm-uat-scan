@@ -1,0 +1,168 @@
+{
+  "currencies": [
+    {
+      "currencyId": "EUR"
+    },
+    {
+      "currencyId": "XOF"
+    },
+    {
+      "currencyId": "MAD"
+    },
+    {
+      "currencyId": "UGX"
+    },
+    {
+      "currencyId": "ZMW"
+    },
+    {
+      "currencyId": "RWF"
+    },
+    {
+      "currencyId": "GHS"
+    },
+    {
+      "currencyId": "XTS"
+    },
+    {
+      "currencyId": "XXX"
+    }
+  ],
+  "monetaryZones": [
+    {
+      "monetaryZoneId": "EUR",
+      "name": "Euro"
+    },
+    {
+      "monetaryZoneId": "XOF",
+      "name": "CFA Franc BCEAO"
+    },
+    {
+      "monetaryZoneId": "MAD",
+      "name": "Moroccan Dirham"
+    },
+    {
+      "monetaryZoneId": "UGX",
+      "name": "Uganda Shilling"
+    },
+    {
+      "monetaryZoneId": "ZMW",
+      "name": "Zambian Kwacha"
+    },
+    {
+      "monetaryZoneId": "RWF",
+      "name": "Rwanda Franc"
+    },
+    {
+      "monetaryZoneId": "GHS",
+      "name": "Ghana Cedi"
+    },
+    {
+      "monetaryZoneId": "XTS",
+      "name": "Testing currency"
+    },
+    {
+      "monetaryZoneId": "XXX",
+      "name": "No currency"
+    }
+  ],
+  "vdfsps": [
+    {
+      "dfspId": "DFSPEUR",
+      "description": "DFSP-EUR",
+      "currencyId": "EUR"
+    },
+    {
+      "dfspId": "DFSPXOF",
+      "description": "DFSP-XOF",
+      "currencyId": "XOF"
+    },
+    {
+      "dfspId": "DFSPMAD",
+      "description": "DFSP-MAD",
+      "currencyId": "MAD"
+    },
+    {
+      "dfspId": "DFSPUGX",
+      "description": "DFSP-UGX",
+      "currencyId": "UGX"
+    },
+    {
+      "dfspId": "DFSPZMW",
+      "description": "DFSP-ZMW",
+      "currencyId": "ZMW"
+    },
+    {
+      "dfspId": "DFSPRWF",
+      "description": "DFSP-RWF",
+      "currencyId": "RWF"
+    },
+    {
+      "dfspId": "DFSPGHS",
+      "description": "DFSP-GHS",
+      "currencyId": "GHS"
+    },
+    {
+      "dfspId": "DFSPXTS",
+      "description": "DFSP-XTS",
+      "currencyId": "XTS"
+    },
+    {
+      "dfspId": "DFSPXXX",
+      "description": "DFSP-XXX",
+      "currencyId": "XXX"
+    }
+  ],
+  "dfsps": [
+    {
+      "dfspId": "testfsp1",
+      "description": "XOF",
+      "currencyId": "XOF"
+    },
+    {
+      "dfspId": "testfsp2",
+      "description": "XOF",
+      "currencyId": "XOF"
+    },
+    {
+      "dfspId": "testfsp3",
+      "description": "EUR",
+      "currencyId": "EUR"
+    },
+    {
+      "dfspId": "testfsp4",
+      "description": "MAD",
+      "currencyId": "MAD"
+    },
+    {
+      "dfspId": "testfsp5",
+      "description": "UGX",
+      "currencyId": "UGX"
+    },
+    {
+      "dfspId": "testfsp6",
+      "description": "ZMW",
+      "currencyId": "ZMW"
+    },
+    {
+      "dfspId": "testfsp7",
+      "description": "RWF",
+      "currencyId": "RWF"
+    },
+    {
+      "dfspId": "testfsp8",
+      "description": "GHS",
+      "currencyId": "GHS"
+    },
+    {
+      "dfspId": "testfsp98",
+      "description": "XTS",
+      "currencyId": "XTS"
+    },
+    {
+      "dfspId": "testfsp99",
+      "description": "XXX",
+      "currencyId": "XXX"
+    }
+  ]
+}

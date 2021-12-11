@@ -1,0 +1,15 @@
+{{- if (index .Values "mojaloop-fxp" "portx" "enabled") -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.portxRoutingEngineConfigMapName }}
+  namespace: {{ default .Release.Namespace (index .Values "mojaloop-fxp" "namespace") }}
+  labels:
+    app: {{ template "casa.name" . }}
+    chart: {{ template "casa.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+ routing-engine.properties: {{ .Files.Get "fxp/data/portx-routing-engine/routing-engine.properties" | quote }}
+ wrapper.conf: {{ .Files.Get "fxp/data/portx-routing-engine/wrapper.conf" | quote }}
+{{- end}}

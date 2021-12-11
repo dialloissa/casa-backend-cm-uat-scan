@@ -1,0 +1,416 @@
+"/jasperserver/rest_v2/reports/Casablanca/311_dfspDailyTxnReport": >-
+  SELECT
+      q.quoteId AS quoteId
+    , payer.name AS senderDFSPId
+    , payer.name AS senderDFSPName
+    , payee.name AS receiverDFSPId
+    , payee.name AS receiverDFSPName
+    , tx.transferId AS currentHubTransferID
+    , IF(IFNULL(ftLegA.transferAId, ftLegB.transferAId) IS NULL, 'null', IFNULL(ftLegA.transferAId, ftLegB.transferAId)) AS parentTransferID
+    , IF(IFNULL(ftLegA.transferBId, ftLegB.transferAId) IS NULL, 'null', IFNULL(ftLegA.transferBId, ftLegB.transferAId)) AS reciprocalHubTransferID
+    , IF(txScn.name = 'TRANSFER', 'P2P', (IF(txScn.name = 'TRANSFER', 'MP', NULL))) AS transactionType
+    , IF(q.transactionRequestId IS NULL, 'Original', 'Reversal') AS natureOfTxnType
+    , CONCAT(SUBSTRING(DATE_FORMAT(q.createdDate, '%Y-%m-%dT%T.%f'), 1, 23), 'Z') AS requestDate
+    , CONCAT(SUBSTRING(DATE_FORMAT(tx.createdDate, '%Y-%m-%dT%T.%f'), 1, 23), 'Z') AS createdDate
+    , IF(ssc.settlementStateId = 'SETTLED', CONCAT(SUBSTRING(DATE_FORMAT(ssc.createdDate, '%Y-%m-%dT%T.%f'), 1, 23), 'Z'), 'null') AS settlementDate
+    , pcPayer.currencyId AS senderCountryCurrencyCode
+    , pcPayee.currencyId AS receiverCountryCurrencyCode
+    , qpPayer.partyIdentifierValue AS senderId
+    , qpPayee.partyIdentifierValue AS receiverId
+    , TRIM(TRAILING '.' FROM TRIM(TRAILING '0' FROM tx.amount)) AS reconciliationAmount
+    , IF((partyPayee.firstName <> NULL && partyPayee.lastName <> NULL), 'RNR', 'RNND') AS receiverNameStatus
+    , 'null' AS pricingOption
+    , 'null' AS receiverKYCLevelStatus
+    , ts.enumeration AS status
+    , CONCAT(SUBSTRING(DATE_FORMAT(ts.createdDate, '%Y-%m-%dT%T.%f'), 1, 23), 'Z') AS modificationDate
+    , 'null' AS errorCode
+    , tx.transferId AS senderDFSPTxnID
+    , tx.transferId AS receiverDFSPTxnID
+    , IF(txf.settlementWindowId IS NULL, 'null', CAST(txf.settlementWindowId AS CHAR)) AS settlementWindowId
+    , IF(ssc.settlementStateId IS NULL, 'null', ssc.settlementStateId) AS settlementState
+    , IF(ssc.createdDate IS NULL, 'null', CONCAT(SUBSTRING(DATE_FORMAT(ssc.createdDate, '%Y-%m-%dT%T.%f'), 1, 23), 'Z')) AS settlementStateChangeDate
+  FROM
+      transferParticipant txpPayer
+  INNER JOIN
+      transferParticipant txpPayee
+      ON txpPayer.transferId = txpPayee.transferId
+      AND txpPayer.transferParticipantId != txpPayee.transferParticipantId
+  INNER JOIN
+      transfer tx
+      ON tx.transferId = txpPayer.transferId
+  INNER JOIN
+      transferParticipantRoleType txprt
+      ON txprt.transferParticipantRoleTypeId = txpPayer.transferParticipantRoleTypeId
+      AND txprt.name = 'PAYER_DFSP'
+  INNER JOIN
+      participantCurrency pcPayer
+      ON pcPayer.participantCurrencyId = txpPayer.participantCurrencyId
+  INNER JOIN
+      participantCurrency pcPayee
+      ON pcPayee.participantCurrencyId = txpPayee.participantCurrencyId
+  INNER JOIN
+      participant payer
+      ON pcPayer.participantId = payer.participantId
+  INNER JOIN
+      participant payee
+      ON pcPayee.participantId = payee.participantId
+  INNER JOIN
+      transactionReference txRef
+      ON txRef.transactionReferenceId = tx.transferId
+  INNER JOIN
+      quote q
+      ON q.quoteId = txRef.quoteId
+  INNER JOIN
+      transactionScenario txScn
+      ON q.transactionScenarioId = txScn.transactionScenarioId
+  INNER JOIN
+      quoteParty qpPayer
+      ON q.quoteId = qpPayer.quoteId
+  INNER JOIN
+      partyType ptPayer
+      ON ptPayer.partyTypeId = qpPayer.partyTypeId AND ptPayer.name = 'PAYER'
+  INNER JOIN
+      quoteParty qpPayee
+      ON q.quoteId = qpPayee.quoteId
+  INNER JOIN
+      partyType ptPayee
+      ON ptPayee.partyTypeId = qpPayee.partyTypeId AND ptPayee.name = 'PAYEE'
+  LEFT JOIN
+      transferFulfilment txf
+      ON txf.transferId = txpPayer.transferId
+  LEFT JOIN
+      settlementSettlementWindow ssw
+      ON ssw.settlementWindowId = txf.settlementWindowId
+  LEFT JOIN
+      settlement sett
+      ON sett.settlementId = ssw.settlementId
+  LEFT JOIN
+      settlementStateChange ssc
+      ON ssc.settlementStateChangeId = sett.currentStateChangeId
+  LEFT JOIN
+      party partyPayee
+      ON qpPayee.partyTypeId = partyPayee.partyId
+  LEFT JOIN (
+      SELECT tsc.transferId, tsc.transferStateId, tsc.createdDate, tst.enumeration
+      FROM
+          transferStateChange tsc
+      INNER JOIN
+          (SELECT MAX(tsc.transferStateChangeId) AS transferStateChangeId, tsc.transferId FROM transferStateChange tsc GROUP BY transferId) mtsc
+          ON mtsc.transferId = tsc.transferId AND tsc.transferStateChangeId = mtsc.transferStateChangeID
+      INNER JOIN
+          transferState tst
+          ON tsc.transferStateId = tst.transferStateId
+      WHERE
+          /* Values other than `COMMITTED`, `RESERVED`, `ABORTED` would be (1) off-spec and (2) not
+           * of interest to the user of this report. */
+          tst.enumeration IN ('COMMITTED', 'RESERVED', 'ABORTED')
+      ) ts
+      ON ts.transferId = tx.transferId
+  LEFT OUTER JOIN fxp_scheme_adapter.fxTransaction ftLegA
+      ON ftLegA.transferAId = tx.transferId
+  LEFT OUTER JOIN fxp_scheme_adapter.fxTransaction ftLegB
+      ON ftLegB.transferBId = tx.transferId
+  WHERE
+      (payer.name = $P{FSP_ID} OR payee.name = $P{FSP_ID})
+  AND
+      (q.createdDate between STR_TO_DATE($P{START_DATE_TIME}, '%Y-%m-%dT%T') AND STR_TO_DATE($P{END_DATE_TIME}, '%Y-%m-%dT%T'))
+"/jasperserver/rest_v2/reports/Casablanca/312_hubDailyTxnReport": >-
+  SELECT DISTINCT
+      qt.quoteId AS quoteId,
+      payerPart.name AS senderDFSPId,
+      payerPart.name AS senderDFSPName,
+      payeeQp.fspId AS receiverDFSPId,
+      payeePart.name AS receiverDFSPName,
+      tfr.transferId AS hubTxnID,
+      IF(txnSce.name = 'TRANSFER', 'P2P', (IF(txnSce.name = 'TRANSFER', 'MP', NULL))) AS transactionType,
+      IF(qt.transactionRequestId IS NULL, 'Original', 'Reversal') AS natureOfTxnType,
+      qt.createdDate AS requestDate,
+      tfr.createdDate AS createdDate,
+      IF(ssc.settlementStateId = 'SETTLED', ssc.createdDate, Cast(NULL as datetime)) AS settlementDate,
+      payerQp.currencyId AS senderCountryCurrencyCode,
+      payeeQp.currencyId AS receiverCountryCurrencyCode,
+      payerQp.partyIdentifierValue AS senderId,
+      payeeQp.partyIdentifierValue AS receiverId,
+      tfr.amount AS reconciliationAmount,
+      IF((payeeParty.firstName <> NULL && payeeParty.lastName <> NULL), 'RNR', 'RNND') AS receiverNameStatus,
+      '' AS pricingOption,
+      '' AS receiverKYCLevelStatus,
+      ts.transferStateId AS status,
+      ts.createdDate as modificationDate,
+      '' AS errorCode,
+      tfr.transferId AS senderDFSPTxnID,
+      tfr.transferId AS receiverDFSPTxnID,
+      IF(xfrFul.settlementWindowId IS NULL, '', Cast(xfrFul.settlementWindowId as char)) AS settlementWindowId,
+      ssc.settlementStateId AS settlementState,
+      ssc.createdDate AS settlementStateChangeDate
+  FROM
+      quote qt
+  INNER JOIN
+      transactionReference txnref
+      ON qt.quoteId = txnref.quoteId
+  INNER JOIN
+      transactionScenario txnSce
+      ON qt.transactionScenarioId = txnSce.transactionScenarioId
+  INNER JOIN
+      quoteParty payerQp
+      ON qt.quoteId = payerQp.quoteId AND payerQp.partyTypeId = '1'
+  INNER JOIN
+      quoteParty payeeQp
+      ON qt.quoteId = payeeQp.quoteId AND payeeQp.partyTypeId = '2'
+  INNER JOIN
+      participant payerPart
+      ON payerQp.participantId = payerPart.participantId
+  INNER JOIN
+      participant payeePart
+      ON payeeQp.participantId = payeePart.participantId
+  INNER JOIN
+      quoteResponse qr
+      ON qr.quoteId = qt.quoteId
+  INNER JOIN
+      transfer tfr
+      ON tfr.transferId = txnref.transactionReferenceId
+  LEFT JOIN
+      transferFulfilment xfrFul
+      ON xfrFul.transferId = tfr.transferId
+  LEFT JOIN
+      party payerParty
+      ON payerQp.partyTypeId = payerParty.partyId
+  LEFT JOIN
+      party payeeParty
+      ON payerQp.partyTypeId = payeeParty.partyId
+  LEFT JOIN
+      settlementSettlementWindow ssw
+      ON ssw.settlementWindowId = xfrFul.settlementWindowId
+  LEFT JOIN
+      settlement sett
+      ON sett.settlementId = ssw.settlementId
+  LEFT JOIN
+      settlementStateChange ssc
+      ON ssc.settlementStateChangeId = sett.currentStateChangeId
+  LEFT JOIN (
+      SELECT
+          tsc.transferId, tsc.transferStateId, tsc.createdDate
+      FROM
+          transferStateChange tsc
+      INNER JOIN
+          (
+              SELECT
+                  MAX(tsc.transferStateChangeId) AS transferStateChangeId,
+                  tsc.transferId
+              FROM
+                  transferStateChange tsc
+              GROUP BY
+                  transferId
+          ) mtsc
+          ON mtsc.transferId = tsc.transferId AND tsc.transferStateChangeId = mtsc.transferStateChangeID
+      ) ts
+      ON ts.transferId = tfr.transferId
+  WHERE
+      qt.createdDate BETWEEN STR_TO_DATE($P{START_DATE_TIME}, '%Y-%m-%dT%T') AND STR_TO_DATE($P{END_DATE_TIME}, '%Y-%m-%dT%T')
+"/jasperserver/rest_v2/reports/Casablanca/settlementWindowReport": >-
+  SELECT sq.*, swOpen.createdDate AS windowOpen, swClose.createdDate as windowClose
+  FROM
+      (
+          SELECT
+              qp.fspId,
+              sw.settlementWindowId,
+              swsc.settlementWindowStateId AS state,
+              COUNT(qp.amount) AS numTransactions,
+              SUM(qp.amount) AS netPosition
+          FROM
+              central_ledger.settlementWindow AS sw
+          LEFT JOIN
+               central_ledger.transferFulfilment AS tf
+               ON tf.settlementWindowId = sw.settlementWindowId
+          LEFT JOIN
+               central_ledger.transactionReference AS tr
+               ON tf.transferId = tr.transactionReferenceId
+          INNER JOIN
+               central_ledger.transferParticipant AS tp
+               ON tp.transferId = tf.transferId
+          INNER JOIN
+               central_ledger.transferParticipantRoleType AS trpt
+               ON trpt.transferParticipantRoleTypeId = tp.transferParticipantRoleTypeId
+          INNER JOIN
+               central_ledger.settlementWindowStateChange AS swsc
+               ON swsc.settlementWindowStateChangeId = sw.currentStateChangeId
+          LEFT JOIN
+               central_ledger.quoteParty AS qp
+               ON qp.quoteId = tr.quoteId AND qp.transferParticipantRoleTypeId = tp.transferParticipantRoleTypeId
+          GROUP BY qp.fspId, sw.settlementWindowId
+      ) AS sq
+  INNER JOIN
+      central_ledger.settlementWindowStateChange AS swOpen
+      ON swOpen.settlementWindowId = sq.settlementWindowId
+  LEFT OUTER JOIN
+      central_ledger.settlementWindowStateChange AS swClose
+      ON swClose.settlementWindowId = sq.settlementWindowId AND swClose.settlementWindowStateId = 'CLOSED'
+  WHERE
+    swOpen.settlementWindowStateId = 'OPEN'
+"/jasperserver/rest_v2/reports/Casablanca/transactionReconciliationReport": >-
+  SELECT DISTINCT
+      qt.quoteId AS quoteId,
+      payerPart.name AS senderDFSPId,
+      payerPart.name AS senderDFSPName,
+      payeeQp.fspId AS receiverDFSPId,
+      payeePart.name AS receiverDFSPName,
+      tfr.transferId AS hubTxnID,
+      IF(txnSce.name = 'TRANSFER', 'P2P', (IF(txnSce.name = 'TRANSFER', 'MP', NULL))) AS transactionType,
+      IF(qt.transactionRequestId IS NULL, 'Original', 'Reversal') AS natureOfTxnType,
+      qt.createdDate AS requestDate,
+      tfr.createdDate AS createdDate,
+      IF(ssc.settlementStateId = 'SETTLED', ssc.createdDate, Cast(NULL as datetime)) AS settlementDate,
+      payerQp.currencyId AS senderCountryCurrencyCode,
+      payeeQp.currencyId AS receiverCountryCurrencyCode,
+      payerQp.partyIdentifierValue AS senderId,
+      payeeQp.partyIdentifierValue AS receiverId,
+      tfr.amount AS reconciliationAmount,
+      IF((payeeParty.firstName <> NULL && payeeParty.lastName <> NULL), 'RNR', 'RNND') AS receiverNameStatus,
+      '' AS pricingOption,
+      '' AS receiverKYCLevelStatus,
+      ts.transferStateId AS status,
+      ts.createdDate as modificationDate, '' AS errorCode,
+      tfr.transferId AS senderDFSPTxnID,
+      tfr.transferId AS receiverDFSPTxnID,
+      IF(xfrFul.settlementWindowId IS NULL, '', Cast(xfrFul.settlementWindowId as char)) AS settlementWindowId,
+      ssc.settlementStateId AS settlementState,
+      ssc.createdDate AS settlementStateChangeDate
+  FROM
+      quote qt
+  INNER JOIN
+      transactionReference txnref
+      ON qt.quoteId = txnref.quoteId
+  INNER JOIN
+      transactionScenario txnSce
+      ON qt.transactionScenarioId = txnSce.transactionScenarioId
+  INNER JOIN
+      quoteParty payerQp
+      ON qt.quoteId = payerQp.quoteId AND payerQp.partyTypeId = '1'
+  INNER JOIN
+      quoteParty payeeQp
+      ON qt.quoteId = payeeQp.quoteId AND payeeQp.partyTypeId = '2'
+  INNER JOIN
+      participant payerPart
+      ON payerQp.participantId = payerPart.participantId
+  INNER JOIN
+      participant payeePart
+      ON payeeQp.participantId = payeePart.participantId
+  INNER JOIN
+      quoteResponse qr
+      ON qr.quoteId = qt.quoteId
+  INNER JOIN
+      transfer tfr
+      ON tfr.transferId = txnref.transactionReferenceId
+  LEFT JOIN
+      transferFulfilment xfrFul
+      ON xfrFul.transferId = tfr.transferId
+  LEFT JOIN
+      party payerParty
+      ON payerQp.partyTypeId = payerParty.partyId
+  LEFT JOIN
+      party payeeParty
+      ON payerQp.partyTypeId = payeeParty.partyId
+  LEFT JOIN
+      settlementSettlementWindow ssw
+      ON ssw.settlementWindowId = xfrFul.settlementWindowId
+  LEFT JOIN
+      settlement sett
+      ON sett.settlementId = ssw.settlementId
+  LEFT JOIN
+      settlementStateChange ssc
+      ON ssc.settlementStateChangeId = sett.currentStateChangeId
+  LEFT JOIN
+      (
+          SELECT tsc.transferId, tsc.transferStateId, tsc.createdDate
+          FROM
+              transferStateChange tsc
+          INNER JOIN
+              (
+                  SELECT
+                      MAX(tsc.transferStateChangeId) AS transferStateChangeId,
+                      tsc.transferId
+                  FROM
+                      transferStateChange tsc
+                  GROUP BY transferId
+              ) mtsc
+              ON mtsc.transferId = tsc.transferId AND tsc.transferStateChangeId = mtsc.transferStateChangeID
+      ) ts
+      ON ts.transferId = tfr.transferId
+  WHERE
+      (payerPart.name = $P{FSP_ID} OR payeePart.name = $P{FSP_ID})
+  AND
+      (xfrFul.settlementWindowId = $O{SETTLEMENT_WINDOW_ID} OR $O{SETTLEMENT_WINDOW_ID} IS NULL)
+  AND
+      qt.createdDate BETWEEN STR_TO_DATE($P{START_DATE_TIME}, '%Y-%m-%dT%T') AND STR_TO_DATE($P{END_DATE_TIME}, '%Y-%m-%dT%T')
+"/jasperserver/rest_v2/reports/Casablanca/315_reconciliationAmountReport": |-
+    SELECT 
+      fromName, 
+      fromId, 
+      toName, 
+      toId, 
+      currency, 
+      numTransactions, 
+      TRIM(TRAILING '.' FROM TRIM(TRAILING '0' FROM sent)) AS sent,
+      TRIM(TRAILING '.' FROM TRIM(TRAILING '0' FROM received)) AS received, 
+      TRIM(TRAILING '.' FROM TRIM(TRAILING '0' FROM net)) AS net,
+      settlementWindowOpen, 
+      settlementWindowClose
+    FROM (
+      SELECT
+        payer.name AS fromName,
+        payer.participantId AS fromId,
+        payee.name AS toName,
+        payee.participantId AS toId,
+        pcPayer.currencyId AS currency,
+        COUNT(txpPayer.transferId) AS numTransactions,
+        CASE WHEN payer.participantId = $P{participantId} THEN sum(txpPayer.amount) ELSE 0 END AS sent,
+        CASE WHEN payer.participantId = $P{participantId} THEN 0 ELSE sum(txpPayer.amount) END AS received,
+        CASE WHEN payer.participantId = $P{participantId} THEN -sum(txpPayer.amount) ELSE sum(txpPayer.amount) END AS net,
+        swOpen.createdDate AS settlementWindowOpen, 
+        swClose.createdDate AS settlementWindowClose
+      FROM
+        transferParticipant txpPayer
+      INNER JOIN
+        transferParticipant txpPayee
+        ON txpPayer.transferId = txpPayee.transferId
+        AND txpPayer.transferParticipantId != txpPayee.transferParticipantId
+      INNER JOIN
+        transferFulfilment txf
+        ON txf.transferId = txpPayer.transferId 
+      INNER JOIN
+        transferParticipantRoleType txprt
+        ON txprt.transferParticipantRoleTypeId = txpPayer.transferParticipantRoleTypeId
+        AND txprt.name = 'PAYER_DFSP'
+      INNER JOIN
+        participantCurrency pcPayer
+        ON pcPayer.participantCurrencyId = txpPayer.participantCurrencyId
+      INNER JOIN
+        participantCurrency pcPayee
+        ON pcPayee.participantCurrencyId = txpPayee.participantCurrencyId
+      INNER JOIN
+        participant payer
+        ON pcPayer.participantId = payer.participantId
+      INNER JOIN
+        participant payee
+        ON pcPayee.participantId = payee.participantId
+      INNER JOIN 
+        settlementWindow sw
+        ON sw.settlementWindowId = txf.settlementWindowId
+      INNER JOIN 
+        settlementWindowStateChange swOpen
+        ON swOpen.settlementWindowId = sw.settlementWindowId
+      INNER JOIN 
+        settlementWindowStateChange swClose
+        ON swClose.settlementWindowId = sw.settlementWindowId
+      WHERE 
+        sw.settlementWindowId = $P{settlementWindowId}
+        AND swOpen.settlementWindowStateId = 'OPEN'
+        AND swClose.settlementWindowStateId = 'CLOSED'
+        AND (payer.participantId = $P{participantId} OR payee.participantId = $P{participantId})
+      GROUP BY 
+        payer.participantId, 
+        payee.participantId, 
+        currency, 
+        swOpen.createdDate, 
+        swClose.createdDate
+    ) AS result

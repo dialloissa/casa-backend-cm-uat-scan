@@ -1,0 +1,22 @@
+dependencies:
+  - name: mojaloop
+    version: 11.0.0-4210.5c8045af6f26455c674a5d411b4acf4650705870
+    repository: http://mojaloop.io/helm/repo
+    condition: mojaloop.enabled
+  - name: oracle-proxy
+    version: 12.1.1
+    repository: https://casablanca.jfrog.io/artifactory/helm
+    condition: oracle-proxy.enabled
+  - name: nginx-ingress
+    #repository: https://kubernetes-charts.storage.googleapis.com
+    repository: https://charts.helm.sh/stable
+    version: ~1.24.7
+    condition: nginx-ingress.enabled
+  - name: mojaloop-fxp
+    version: 1.17.9
+    repository: "@fxp-helm"
+    condition: mojaloop-fxp.enabled
+  - name: mbox-fxp-hub-proxy
+    repository: https://modusintegration.github.io/mbox-fxp-hub-proxy-helm
+    version: 0.0.32
+    condition: mbox-fxp-hub-proxy.enabled

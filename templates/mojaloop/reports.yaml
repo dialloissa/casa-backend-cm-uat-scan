@@ -1,0 +1,151 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reporting-config-file
+  labels:
+    app.kubernetes.io/name: reports
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+data:
+  reports.json: '{
+    "/jasperserver/rest_v2/reports/Casablanca/311_dfspDailyTxnReport": {{ .Files.Get "reports/311_dfspDailyTxnReport.sql" | quote | replace "'" "''" }},
+    "/jasperserver/rest_v2/reports/Casablanca/312_hubDailyTxnReport": {{ .Files.Get "reports/312_hubDailyTxnReport.sql" | quote | replace "'" "''" }},
+    "/jasperserver/rest_v2/reports/Casablanca/settlementWindowReport": {{ .Files.Get "reports/settlementWindowReport.sql" | quote | replace "'" "''" }},
+    "/jasperserver/rest_v2/reports/Casablanca/transactionReconciliationReport": {{ .Files.Get "reports/transactionReconciliationReport.sql" | quote | replace "'" "''" }},
+    "/jasperserver/rest_v2/reports/Casablanca/315_reconciliationAmountReport": {{ .Files.Get "reports/315_reconciliationAmountReport.sql" | quote | replace "'" "''" }}
+    }'
+  init.sql: {{ .Files.Get "reports/initStoredProc.sql" | quote | indent 4 }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reporting
+  labels:
+    app.kubernetes.io/name: reporting
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: reporting
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/version: {{ .Chart.AppVersion }}
+      app.kubernetes.io/managed-by: {{ .Release.Service }}
+      helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+  template:
+    metadata:
+      annotations:
+        # Redeploy if the report config changes
+        checksum/reports-config: {{ .Files.Get "reports.yaml" | sha256sum }}
+      labels:
+        app.kubernetes.io/name: reporting
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/version: {{ .Chart.AppVersion }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    spec:
+      imagePullSecrets:
+      - name: dock-casa-secret
+      initContainers:
+      - name: 'create-stored-procs'
+        image: mysql:5.7
+        envFrom:
+        - secretRef:
+            name: reporting-master-database
+        command:
+        - sh
+        - -c
+        - mysql -u $DB_USER --password=$DB_PASSWORD -h $DB_HOST -D $DB_DATABASE --comments < /opt/reporting/config/init.sql
+        volumeMounts:
+        - name: config-volume
+          mountPath: /opt/reporting/config
+      containers:
+      - name: reporting
+        image: {{ default "mojaloop/reporting" .Values.reporting.image.repository }}:{{ .Values.reporting.image.tag }}
+        imagePullPolicy: {{ default "Always" .Values.reporting.image.pullPolicy }}
+        ports:
+          - name: http
+            containerPort: 3000
+            protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        envFrom:
+          - secretRef:
+              name: reporting-read-replica
+        volumeMounts:
+        - name: config-volume
+          mountPath: /opt/reporting/config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: reporting-config-file
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: reporting-master-database
+  labels:
+    app.kubernetes.io/name: reporting
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+type: Opaque
+data:
+  DB_HOST: {{ .Values.central_ledger_db.db_host | b64enc }}
+  DB_USER: {{ .Values.central_ledger_db.db_user | b64enc }}
+  DB_PASSWORD: {{ .Values.central_ledger_db.db_password | b64enc }}
+  DB_DATABASE: {{ .Values.central_ledger_db.db_database | b64enc }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: reporting-read-replica
+  labels:
+    app.kubernetes.io/name: reporting
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+type: Opaque
+data:
+  DB_HOST: {{ .Values.reporting_db.db_host | b64enc }}
+  DB_USER: {{ .Values.reporting_db.db_user | b64enc }}
+  DB_PASSWORD: {{ .Values.reporting_db.db_password | b64enc }}
+  DB_DATABASE: {{ .Values.reporting_db.db_database | b64enc }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-reporting
+  labels:
+    app.kubernetes.io/name: reporting
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP
+      name: api
+  selector:
+    app.kubernetes.io/name: reporting

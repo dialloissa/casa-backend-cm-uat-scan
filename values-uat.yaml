@@ -1,0 +1,918 @@
+####################################################################################################
+# Common values and configuration to be re-used as anchors for many services
+####################################################################################################
+
+# FXP global variables
+fspVerificationCertsSecretName: &fspVerificationCertsSecretName fsp-verification-certs
+fspVerificationCertsGlob: fxp/jwsVerificationKeys/*.pem
+fxpSigningKeysSecretName: &fxpSigningKeysSecretName fxp-signing-keys
+fxpSigningKeysGlob: fxp/signingKeys/*
+currencyMapConfigMapName: &currencyMapConfigMapName dfsp-currency-map
+fxpInitialConfigMapName: &fxpInitialConfigMapName fxp-adapter-initial-data-configmap
+fxpServerInitialConfigMapName: &fxpServerInitialConfigMapName fxp-server-initial-data-configmap
+fxpInitialConfigFile: fxp/data/fxpAdapterInitialDataConfig.json
+portxRoutingEngineConfigMapName: &portxRoutingEngineConfigMapName fxp-portx-routing-engine-configmap
+
+# the nginx-ingress should be enabled only in local deployments
+nginx-ingress:
+  enabled: false
+  # This ensures we have a completely deterministic name for the ingress controller, such that we
+  # can predictably port-forward it with the same command, regardless of the release name
+  fullnameOverride: local-test-ingress
+# splitting definition and actual values as sometimes we need to define the whole `ingress` part
+# but others just modify a part of its values
+common-ingress: &common_ingress_definition
+  ingress: &common_ingress_values
+    enabled: true
+    hosts:
+      api: &api_hostname uat-casa-interop-switch.casahub.live
+      admin: uat-casa-interop-switch.casahub.live
+
+# Artifactory credentials
+imagePullCredentials: &image_pull_credentials
+  registry: modusbox-mbx-docker.jfrog.io
+  user: mowali-cicd
+  pass: nZ9F,qLJBeE7A9Xs?p{r
+
+kafka-conn: &kafka_conn_values
+  kafka_host: wn0-mowali.tv2aub3ddgqefmz0f0j0tkgzad.ax.internal.cloudapp.net    
+  kafka_port: 9092
+
+common-custom-error-ingress-definition: &common_custom_error_ingress_definition
+  ingress:
+    <<: *common_ingress_values
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      # This means we return a 503 instead of a 504
+      nginx.ingress.kubernetes.io/server-snippet: |-
+        location @custom_504 {
+          return 503;
+        }
+        error_page 504 @custom_504;
+
+central_ledger_db: &central_ledger_db_values
+  db_host: &central_ledger_db_host uatdat1asql220200325.mysql.database.azure.com
+  db_database: central_ledger
+  db_password: &central_ledger_db_password '9jxU4J12N3tKRdgs!'
+  db_user: &central_ledger_db_user 'sa@uatdat1asql220200325'
+  <<: *kafka_conn_values
+
+account_lookup_db: &account_lookup_db_values
+  db_host: &account_lookup_db_host uatdat1asql220200325.mysql.database.azure.com
+  db_database: account_lookup
+  db_password: &account_lookup_db_password '9jxU4J12N3tKRdgs!'
+  db_user: &account_lookup_db_user 'sa@uatdat1asql220200325'
+
+reporting_db:
+  db_host: uatdat1asql220200325.mysql.database.azure.com
+  db_database: central_ledger
+  db_password: '9jxU4J12N3tKRdgs!'
+  db_user: sa@uatdat1asql220200325
+
+common_sidecar_values: &common_sidecar_values
+  sidecar:
+    enabled: false
+
+waitformysql: &waitformysql
+  init:
+    mysql:
+      tag: 5.7
+
+centralledger_config: &centralledger_config
+  <<: *waitformysql
+  config:
+    forensicloggingsidecar_disabled: true
+    <<: *central_ledger_db_values
+
+jws_config: &jws_config
+  jwsSign: true
+  fspiopSourceSigningName: 'switch'
+  jwsSigningKey: # Set with --set-file
+
+####################################################################################################
+# Mojaloop specific value overrides
+####################################################################################################
+kafka:
+  enabled: false
+
+mariadb:
+  enabled: false
+
+mojaloop:
+  account-lookup-service:
+    account-lookup-service:
+      containers:
+        api:
+          image:
+            tag: v10.3.1
+      <<: *waitformysql
+      <<: *common_sidecar_values
+      <<: *common_custom_error_ingress_definition
+      config:
+        <<: *account_lookup_db_values
+        log_level: debug
+        endpointSecurity:
+          <<: *jws_config
+    account-lookup-service-admin:
+      containers:
+        admin:
+          image:
+            tag: v10.3.1
+      <<: *waitformysql
+      <<: *common_sidecar_values
+      <<: *common_ingress_definition
+      config:
+        <<: *account_lookup_db_values
+    als-oracle-pathfinder:
+      image:
+        tag: v9.4.0
+      enabled: true
+      <<: *common_sidecar_values
+      <<: *common_ingress_definition
+      # Disable init in UAT because it will clash with oracle proxy init and the central ledger
+      # values it needs will already exist in the db.
+      init:
+        enabled: false
+      config:
+        db:
+          central_ledger:
+            host: *central_ledger_db_host
+            user: *central_ledger_db_user
+            password: *central_ledger_db_password
+          account_lookup:
+            host: *account_lookup_db_host
+            user: *account_lookup_db_user
+            password: *account_lookup_db_password
+        pathfinder:
+          # Example host IP to be replaced by valid IP
+          host: 'pathfinder-ssl.neustar.biz'
+          port: 7007
+          queryTimeoutMs: 10000
+          tls:
+            certs:
+              # These are example keys, please get valid keys for your deployment
+              client_cert: |-
+                -----BEGIN CERTIFICATE-----
+                MIIF8DCCBNigAwIBAgIQDSfiGiA2eFICd3OyikyJvjANBgkqhkiG9w0BAQsFADBI
+                MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMSIwIAYDVQQDExlE
+                aWdpQ2VydCBBc3N1cmVkIElEIENBIEcyMB4XDTIxMDkyNDAwMDAwMFoXDTIzMDky
+                MzIzNTk1OVowaDELMAkGA1UEBhMCQ0kxEDAOBgNVBAcTB0FiaWRqYW4xDzANBgNV
+                BAoTBk1vd2FsaTERMA8GA1UECxMIU2VjdXJpdHkxIzAhBgNVBAMTGnBhdGhmaW5k
+                ZXIuY2FzYWh1YnBwcC5saXZlMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKC
+                AgEA4iDFkC1Td+7mFti7E+2Awyg9E7MmS3Ian/r0H9DGjenOT5YYLu2w15bUzXXq
+                X9ggeiTy/Lx5e75NGR5XLBwZ5Je4DobBg0pCVLqKu96XKAnFsghMakxftZw5qV7w
+                ogFzAkDM+7ms+OK3b7cZD0Qa53MZUXug8Fzex0cRIDLa/GWgOJs6GKGF7wXgoVSq
+                7R06YUZYrxVnWX0/C45cWEV2royUqLG4xFnVEm4XOMOUX4erKlINsb/YIxg+hCij
+                fa6gFnj5dsT6nIwbx21R0CVgEKvW+nEAUrrBQ6vtpJ+BBefnSJwufl775hqUFmjA
+                mWOob3A1613WDQgw0APCs+WcMx+22jhZUIMuTpPOTzjWR7utnVbeOMg+29oSVzvT
+                RlpaYLhdXQF7qOf6bOMv9J1Mm/eBqYegbenw3pcimiXKkhgyiZsML7A2Fx3cUwum
+                J29CicG3vPgUKcJXIhSq5hT5uAm4k8i9e5mwrqsT77up/xFRUu1AOwYGRUbf49up
+                k4c608KqCu+k+TjMG2MUia1SE5msR/ogDt9iosHJBhCO1M3aHsLS+ryqdmM6VVZu
+                O7v9+Ak7PnptqBI62NrGXnGHRIoOxIo/qqLU8+aZd99xmr3z96h5cHiyFm/eJ592
+                vTq0WGo8tl9Odh419VM8/W2xAWbzO/JpB8m+0CrB/HBn5nUCAwEAAaOCAbQwggGw
+                MB8GA1UdIwQYMBaAFLHP9qHl5oHFZkeNeIR3e/mBy0qmMB0GA1UdDgQWBBQuXrtF
+                WHWyOJL/EmqXRqSFNffp2jAMBgNVHRMBAf8EAjAAMA4GA1UdDwEB/wQEAwIFoDAT
+                BgNVHSUEDDAKBggrBgEFBQcDAjBDBgNVHSAEPDA6MDgGCmCGSAGG/WwGAQEwKjAo
+                BggrBgEFBQcCARYcaHR0cHM6Ly93d3cuZGlnaWNlcnQuY29tL0NQUzB9BgNVHR8E
+                djB0MDigNqA0hjJodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1
+                cmVkSURDQUcyLmNybDA4oDagNIYyaHR0cDovL2NybDQuZGlnaWNlcnQuY29tL0Rp
+                Z2lDZXJ0QXNzdXJlZElEQ0FHMi5jcmwwdwYIKwYBBQUHAQEEazBpMCQGCCsGAQUF
+                BzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQQYIKwYBBQUHMAKGNWh0dHA6
+                Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRENBRzIuY3J0
+                MA0GCSqGSIb3DQEBCwUAA4IBAQCwwAIKG0iVlOOMq+soQJzkBP+Lmmv6i0ONMUf7
+                /Kv5AovK0hWDhSjYMrdiOYbvZzOBAuo92Cy0FKGrhUf4vE8tDvqeIzpHYlToU2cm
+                pwz5Ta+vUI72bmNX2KxaaMXG2xtMmx0iT92jVum71x9OAjLaKTOeVCxB560Bmxwv
+                BzMsVdjkTey95FAqwhUXEWTSmI62jKF7O4rDxsAmRq4fJDKnasacATVkC4BJK9RA
+                BZOypux23ADurPfNAkB5s5ZPXdjjIzBlX/xEYEMCNz6cQl9hgRPpaTv4xlpnWM5y
+                1mc4/IoObti3XqtJuoZjyAAu2nI5iYwpNHwMVzS703T4wJka
+                -----END CERTIFICATE-----
+              client_key: |-
+                -----BEGIN RSA PRIVATE KEY-----
+                MIIJKQIBAAKCAgEA4iDFkC1Td+7mFti7E+2Awyg9E7MmS3Ian/r0H9DGjenOT5YY
+                Lu2w15bUzXXqX9ggeiTy/Lx5e75NGR5XLBwZ5Je4DobBg0pCVLqKu96XKAnFsghM
+                akxftZw5qV7wogFzAkDM+7ms+OK3b7cZD0Qa53MZUXug8Fzex0cRIDLa/GWgOJs6
+                GKGF7wXgoVSq7R06YUZYrxVnWX0/C45cWEV2royUqLG4xFnVEm4XOMOUX4erKlIN
+                sb/YIxg+hCijfa6gFnj5dsT6nIwbx21R0CVgEKvW+nEAUrrBQ6vtpJ+BBefnSJwu
+                fl775hqUFmjAmWOob3A1613WDQgw0APCs+WcMx+22jhZUIMuTpPOTzjWR7utnVbe
+                OMg+29oSVzvTRlpaYLhdXQF7qOf6bOMv9J1Mm/eBqYegbenw3pcimiXKkhgyiZsM
+                L7A2Fx3cUwumJ29CicG3vPgUKcJXIhSq5hT5uAm4k8i9e5mwrqsT77up/xFRUu1A
+                OwYGRUbf49upk4c608KqCu+k+TjMG2MUia1SE5msR/ogDt9iosHJBhCO1M3aHsLS
+                +ryqdmM6VVZuO7v9+Ak7PnptqBI62NrGXnGHRIoOxIo/qqLU8+aZd99xmr3z96h5
+                cHiyFm/eJ592vTq0WGo8tl9Odh419VM8/W2xAWbzO/JpB8m+0CrB/HBn5nUCAwEA
+                AQKCAgAo1PYXtLePvom5smUFkitgEhIFTqIpmW8JWE1guVhBI+jnIhk30B/QriG7
+                AAHUULh8ldNyo63kFFbjpEDlbCWYy3Sm2tpylKQpnI2Uovr0dd9G6Iyz3RqjNpSK
+                6uPUvSJBU+YvxjVfs8Cf4ZYa1ZduF7CIsCQ9guePYFvNTqGQVeF6lz0EWZZPtOX8
+                +8bpjg+OpR86bkj9Ncp+kbRHFDP8DNKDK6RLgFUjQNHcpCRUo7DasXpbkGK845HW
+                V2g+N5wcsreJJMSEJCCYADt3tGgGWqE1E9aVGbfwOkltIogvwtJWoC0dEJW31TDM
+                Yxn0GLS/eqmh2I3gSIxX43Xy+hEcK0UeMW9SkSMHEK9XIgGEtyBJon0lUvUJ5Hu/
+                IWlB+XSLbRgOXBGTJDzYQsFOIrQaa52dbR2PSf7ejGoHZjswPS0JMWqZfhH1cJbp
+                lJr1v+UzHov9bpcfcQqD/6Vtd9gk6MftVlnJbvWmgjadVEJImRsWthcumpBn/rGX
+                K2NJsSZebWF4pqRn7UcJYZBiCszSAye+XONY8BUmPUebCEQwP5PICldou2d/DkO+
+                41yYpi0Gd5UXLRCcrmnFzOH0obK3u2PVqP/Cs13mqgc4Y8P2oHqLCne7cYmwFQ/P
+                XYuHdwUwxA1JUdyCcx2S4QbecIkBFGJdstFQkIMkc0kPaMzMeQKCAQEA9DN6vDVv
+                EmTi0MSXJrTTEWDyVArq7IbB0/D23xbit1RnYutD14+SuLc7VMByQm52s+cZrVqF
+                BNfiuR4lzC1mWTIe3uOwSR7E4smZtP+lc8pHwZjStvnVHd2EzEOmtQQ8+dXNQRNa
+                9ylHrnBYhYaLmKLIo1UIVlO+QG07QzFBpZZOfPgz6K+eVzTGoEYCxDhy+/Y26gRr
+                DAA/t08s+xrLj6cLGwyd+QcG66wasz2avz2xW25EwY3Q3E9Qjld4ywOk+ZPnvLbt
+                mvUu+iR+MiVvRew80z/hFHc/OhiQGT1O1Vfz0A1ZSp18HEFfaYme79kozyLyHrVl
+                CXn5d5ckUPnu3wKCAQEA7Q2/Idsx8nYWfhCD/mM/FsltpOxQwTunFCf2COEtijie
+                T8oGYkxTUoYdL+kbutMhxAOWU5xNMXUKVVSK16H2kLk83Tee7bNuuws8RPF6ha5y
+                doN2uUgPrJweFGk2sb0L7+UQ5ZGk4V6oczRdpmBvuHYgWaBVkEPX0hsi139ZRTHK
+                X0Q/o9CnYYFhpBf03XFwKNt1S25HufxcU1Z+XAkd4rFrWejSTE7ipOFRBl1od18h
+                wrUTone09zgQWnTVvIHGdRo6ilsZoxi0nT2sYk+1hLmPX3C5olWLIjfjpEY3Q6Sm
+                gvNTPBwNGH79sWsKke4izlb4l7bZycAUj0+l2gcZKwKCAQAjTEGkbNDWRtDmPlRe
+                2upba7j7XuygLcZcnUsB6ivxNfkPulP/F5isrIed84dQhOkRjgkPHrN1hMMX4Pyz
+                q6hMoksGCsFTgGgTI/Lcz8sZlpaSrEVg/3HHtFpasDirl6Y8sqPNkT+n1EaxNzoE
+                avNIp9b6jPL8j3RDmcZkKv2DMtu7gqD2NFRd5JoFVrlVpZcxRmCfqO3UOUD8fSxS
+                S4g7Bnk7erJm6ZYdgK4HVJNGq2M0hRbZJ2eWQLyzJn+mUKuLC88GXyavLFuS+q1n
+                EDQqVkBghK5DKA1yl1RU4aDAg8sROqy6dVMYPnbNKYBYyPn2HuYCfFPTb9cYazdr
+                oQTfAoIBAQCe366wryqLeI9ckA8WqEd5Kyi79tGsoCE7RgkELH6L+6RGj3y11rel
+                QFNBb/bwwF4J8+mFQeUOd4WkaNPg7yDEIBHlpUhzwOU+oKoU/s6B18fJHBSu2tf+
+                dGdIgLdyaeQdNKWdZn5duUYmZ/s37bwSocDOsMGHvaBgpWU1jpky4crjDGemj8oO
+                dFsPUir/Wu6zw1maY1/ZC4SJKhfn8QhBjW0IRhzjnZ8SqBvYqzO/hVeoGhn9skLr
+                yXxUU6eH/mYWx6xiW+oTwBQUqmflP8zFFmQ7r94KKVDlbxW3XIPfZvNeIlwvlhFE
+                0J+Qj8/2u+ZB6lITxC20pHJjFhtuw4EfAoIBAQCOKBtzB4Z0vfQ2bxmpIwvwKcse
+                JnmMslE9M5ED+PSFR7vx6vU1KeEXtcXdr+9Zi4NZxOHghwJ9v7CHVIaBhjhytSnu
+                M2qRBiDsz4Hb2MKrRDk0mRRtF5yBrbfZ/snqfSzwtIZJbSPsIEP+XRgIhGW1SgEe
+                yco7/070jieJqu042sJASvKZrQnNKSb3R21XadoXOPd/a/mZReWMWRGIoWCfN/vt
+                K3Sv1tf4k6WiKFqsy94iCUQUWTMeag2xPpZOKqSO3jw27cL+wtkk95XOY2ZFDxsi
+                7MtPYBtZLda51t5c8kR9zXuO8zRnAKTpmpt8uAl5Qqir1RwxhsHFHFmZyxoI
+                -----END RSA PRIVATE KEY-----
+              pathfinder_cert: |-
+                -----BEGIN CERTIFICATE-----
+                MIIHKzCCBhOgAwIBAgIQC8BA31WxPISc4+/Oo/5WwzANBgkqhkiG9w0BAQsFADBe
+                MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
+                d3cuZGlnaWNlcnQuY29tMR0wGwYDVQQDExRHZW9UcnVzdCBSU0EgQ0EgMjAxODAe
+                Fw0xOTAyMjIwMDAwMDBaFw0yMTA1MjMxMjAwMDBaMH0xCzAJBgNVBAYTAlVTMREw
+                DwYDVQQIEwhWaXJnaW5pYTERMA8GA1UEBxMIU3RlcmxpbmcxFDASBgNVBAoTC05l
+                dXN0YXIgSW5jMQ0wCwYDVQQLEwRFbnVtMSMwIQYDVQQDExpwYXRoZmluZGVyLXNz
+                bC5uZXVzdGFyLmJpejCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANuI
+                9MyqFTTX0xOoy8H/seS8+66OTp6mzie1DLMQeQf4rTlqEc6/TyjdlIwhVnFxZeNw
+                ni/1kIrQVs9dy6blOEtrgii25FmJ5N2rffssu24drnj1sa6TJoBL94Ym7fg0mHOM
+                duvtc1KtOTT76cyxxTHjTSLHMUORjBQhNXjpqIu+512AWyMF1K3OinvJCzS4rl9p
+                3C2fjOEBZIBx/y/Nf3etFr87eTbETtykCkbZ9pqZ+ZT8MjEIcTnxXA3kY78yB984
+                Y2VD8s/TiNdmf6dbWEHsekGueB2fUQdhSbJ7bhbVuYXiU0xPkygrvwes3j6gnfUp
+                LX7k1u9UtrnDIVLCMn8CAwEAAaOCA8QwggPAMB8GA1UdIwQYMBaAFJBY/7CcdahR
+                VHex7fKjQxY4nmzFMB0GA1UdDgQWBBTLbqLmDnv+kWj9B1SNw7iYMByu4DBFBgNV
+                HREEPjA8ghpwYXRoZmluZGVyLXNzbC5uZXVzdGFyLmJpeoIecGF0aGZpbmRlci1j
+                dGUtc3NsLm5ldXN0YXIuYml6MA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAUBggr
+                BgEFBQcDAQYIKwYBBQUHAwIwPgYDVR0fBDcwNTAzoDGgL4YtaHR0cDovL2NkcC5n
+                ZW90cnVzdC5jb20vR2VvVHJ1c3RSU0FDQTIwMTguY3JsMEwGA1UdIARFMEMwNwYJ
+                YIZIAYb9bAEBMCowKAYIKwYBBQUHAgEWHGh0dHBzOi8vd3d3LmRpZ2ljZXJ0LmNv
+                bS9DUFMwCAYGZ4EMAQICMHUGCCsGAQUFBwEBBGkwZzAmBggrBgEFBQcwAYYaaHR0
+                cDovL3N0YXR1cy5nZW90cnVzdC5jb20wPQYIKwYBBQUHMAKGMWh0dHA6Ly9jYWNl
+                cnRzLmdlb3RydXN0LmNvbS9HZW9UcnVzdFJTQUNBMjAxOC5jcnQwCQYDVR0TBAIw
+                ADCCAfYGCisGAQQB1nkCBAIEggHmBIIB4gHgAHYApLkJkLQYWBSHuxOizGdwCjw1
+                mAT5G9+443fNDsgN3BAAAAFpFiFVvAAABAMARzBFAiEA9sjfAGNdf12MKfjrEbZ3
+                leBomrp5NX6EDzEjntFRV1ACIFTAuvWB1joOomVAjdZJ/N6SiIq5cmDh2kgwSco1
+                mDQVAHYAh3W/51l8+IxDmV+9827/Vo1HVjb/SrVgwbTq/16ggw8AAAFpFiFXBwAA
+                BAMARzBFAiEA6GvIepqPozNDFdsAPzRmZi54+ca5DfFiTZrA4goU67QCIE7psPkD
+                rYe0J5hwlnXOY4fg258my+WZL6jwx67zfBH7AHYARJRlLrDuzq/EQAfYqP4owNrm
+                gr7YyzG1P9MzlrW2gagAAAFpFiFV6wAABAMARzBFAiEAltYOx4KFbyLN6nhwkrAI
+                F1Kyb9zyZ/GuEXS9U3f4lAYCICwIa6eKWvzynXiwOdDeHeA1vvsYFbL0NoqlzvZ/
+                5HqtAHYAVhQGmi/XwuzT9eG9RLI+x0Z2ubyZEVzA75SYVdaJ0N0AAAFpFiFXHgAA
+                BAMARzBFAiEAgj8cUt4qwhQpODoj1kpOm5Jj5/OFMXZFaSJ/c3t3EHwCIAyQDtFB
+                b4xP0k43+HxdoC+IA4fm8lpvmvm+fg7ivu1rMA0GCSqGSIb3DQEBCwUAA4IBAQCT
+                OBEW2mF6mT6KW4FHIOnzoOaNoB56JqGjcUr5T8WAX9UYUK/K+9RikS5hYmy71nZN
+                HWZ2fWR/xSvZwyVb3alNDcAlYq+JUxuspkS1n+wVVOD1KaqZ/OJ80rDsOeGhhoxs
+                Iorc21NsJUTxSdBTgk0i8fYr5hxNCm/3R3+f08XtfeS6wnWgrzCoaQHRm+tovlkW
+                jzFdj3yKdHQrzdRHBvaY9rx9txnyzzlMsLESndHiq3SsJn0hjmhuv4fUdHZ4bOAF
+                gH9xXsp2OkeQC2W4JHMQXREK35dvTbkmdwiv7m1nUFQIsdVCoNLyQgCxE9WeoWVZ
+                swAuMNNA04475W70JPPB
+                -----END CERTIFICATE-----
+              pathfinder_intermediate_cert: |-
+                -----BEGIN CERTIFICATE-----
+                MIIEizCCA3OgAwIBAgIQBUb+GCP34ZQdo5/OFMRhczANBgkqhkiG9w0BAQsFADBh
+                MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
+                d3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBD
+                QTAeFw0xNzExMDYxMjIzNDVaFw0yNzExMDYxMjIzNDVaMF4xCzAJBgNVBAYTAlVT
+                MRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5j
+                b20xHTAbBgNVBAMTFEdlb1RydXN0IFJTQSBDQSAyMDE4MIIBIjANBgkqhkiG9w0B
+                AQEFAAOCAQ8AMIIBCgKCAQEAv4rRY03hGOqHXegWPI9/tr6HFzekDPgxP59FVEAh
+                150Hm8oDI0q9m+2FAmM/n4W57Cjv8oYi2/hNVEHFtEJ/zzMXAQ6CkFLTxzSkwaEB
+                2jKgQK0fWeQz/KDDlqxobNPomXOMJhB3y7c/OTLo0lko7geG4gk7hfiqafapa59Y
+                rXLIW4dmrgjgdPstU0Nigz2PhUwRl9we/FAwuIMIMl5cXMThdSBK66XWdS3cLX18
+                4ND+fHWhTkAChJrZDVouoKzzNYoq6tZaWmyOLKv23v14RyZ5eqoi6qnmcRID0/i6
+                U9J5nL1krPYbY7tNjzgC+PBXXcWqJVoMXcUw/iBTGWzpwwIDAQABo4IBQDCCATww
+                HQYDVR0OBBYEFJBY/7CcdahRVHex7fKjQxY4nmzFMB8GA1UdIwQYMBaAFAPeUDVW
+                0Uy7ZvCj4hsbw5eyPdFVMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEF
+                BQcDAQYIKwYBBQUHAwIwEgYDVR0TAQH/BAgwBgEB/wIBADA0BggrBgEFBQcBAQQo
+                MCYwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBCBgNVHR8E
+                OzA5MDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vRGlnaUNlcnRHbG9i
+                YWxSb290Q0EuY3JsMD0GA1UdIAQ2MDQwMgYEVR0gADAqMCgGCCsGAQUFBwIBFhxo
+                dHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BTMA0GCSqGSIb3DQEBCwUAA4IBAQAw
+                8YdVPYQI/C5earp80s3VLOO+AtpdiXft9OlWwJLwKlUtRfccKj8QW/Pp4b7h6QAl
+                ufejwQMb455OjpIbCZVS+awY/R8pAYsXCnM09GcSVe4ivMswyoCZP/vPEn/LPRhH
+                hdgUPk8MlD979RGoUWz7qGAwqJChi28uRds3thx+vRZZIbEyZ62No0tJPzsSGSz8
+                nQ//jP8BIwrzBAUH5WcBAbmvgWfrKcuv+PyGPqRcc4T55TlzrBnzAzZ3oClo9fTv
+                O9PuiHMKrC6V6mgi0s2sa/gbXlPCD9Z24XUMxJElwIVTDuKB0Q4YMMlnpN/QChJ4
+                B0AFsQ+DU0NCO+f78Xf7
+                -----END CERTIFICATE-----
+            # rejectUnauthorized should be true in production
+            rejectUnauthorized: false
+            # The following paths are all relative to this directory containing the values file
+            client_cert_path: '/opt/als-oracle-pathfinder/secrets/client_cert.pem'
+            client_key_path: '/opt/als-oracle-pathfinder/secrets/client_key.pem'
+            root_cert_path: '/opt/als-oracle-pathfinder/secrets/pathfinder_cert.pem'
+            # Intermediate cert is optional, but will likely be required for mutual auth if
+            # rejectUnauthorized is true, as Neustar's certificate doesn't seem to have been signed by any
+            # certs in the Mozilla bundle, which is used by Node as default.
+            intermediate_cert_path: '/opt/als-oracle-pathfinder/secrets/pathfinder_intermediate_cert.pem'
+    mysql:
+      enabled: true
+      mysqlRootPassword: *account_lookup_db_password
+      mysqlPassword: *account_lookup_db_password
+  central:
+    centraleventprocessor:
+      enabled: true
+      config:
+        <<: *central_ledger_db_values
+    centralsettlement:
+      <<: *waitformysql
+      <<: *common_sidecar_values
+      config:
+        <<: *central_ledger_db_values
+      ingress:
+        externalPath: /settlements
+        annotations:
+          nginx.ingress.kubernetes.io/rewrite-target: '/v1'
+        <<: *common_ingress_values
+
+    centralledger:
+      centralledger-handler-transfer-prepare: *centralledger_config
+      centralledger-handler-transfer-position: *centralledger_config
+      centralledger-handler-transfer-get: *centralledger_config
+      centralledger-handler-transfer-fulfil: *centralledger_config
+      centralledger-handler-timeout: *centralledger_config
+      centralledger-handler-admin-transfer: *centralledger_config
+      centralledger-service:
+        <<: *centralledger_config
+        ingress:
+          externalPath:
+            api: /admin
+          <<: *common_ingress_values
+        init:
+          migration:
+            enabled: false
+      mysql:
+        metricsExporter:
+          enabled: false
+        logTail: false
+        mysqlRootPassword: *central_ledger_db_password
+        mysqlPassword: *central_ledger_db_password
+      kafka:
+        prometheus:
+          jmx:
+            enabled: false
+          kafka:
+            enabled: false
+  emailnotifier:
+    enabled: true
+    <<: *waitformysql
+    <<: *common_sidecar_values
+    config:
+      email:
+        host: 'smtp.office365.com'
+        port: 587
+        user: 'business.alerts@mowali.com'
+        pass: 'mgrmqvdnpjwhhmbd'
+        ciphers: 'SSLv3'
+      <<: *kafka_conn_values
+    livenessProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
+  finance-portal:
+    imageCredentials:
+      name: dock-casa-secret
+      enabled: true
+    config:
+      <<: *central_ledger_db_values
+      # DO NOT SET TO TRUE IN PRODUCTION
+      corsReflectOrigin: 'false'
+      # DO NOT SET TO TRUE IN PRODUCTION
+      BypassAuth: 'false'
+      # DO NOT SET TO TRUE IN PRODUCTION
+      InsecureCookie: 'false'
+      # the `http://` for this value is prepended by the helm configmap.yaml of this service
+      fxpEndpoint: 'fxp-mojaloop-fxp-server.fxp.svc.cluster.local:8080'
+      # the `http://` for this value is prepended by the helm configmap.yaml of this service
+      externalSettlementsEndpoint: 'fxp-mojaloop-fxp-tmf.fxp.svc.cluster.local:8084/tmf'
+      # Reports endpoints (not including release name, populated automatically)
+      report1: "reports/jasperserver/rest_v2/reports/Casablanca/312_hubDailyTxnReport.csv"
+      report2: "reports/jasperserver/rest_v2/reports/Casablanca/settlementWindowReport.csv"
+      # Disable auth on local env due to absence of WSO2IS. Enable on dev as WSO2IS is present.
+      isOauthEnabled: true
+      oauthServer: 'https://uatint1wso2iskm.casahub.live'
+      oauthClientKey: 'if31ykQbk95RwqlX5d8mwO3Ww0Ia'
+      oauthClientSecret: 'AtClX36kA8bvfZKQkbYqBxfOUhUa'
+      oauthPort: '9443'
+      is_populate:
+        name: ispopulate
+        http:
+          endpoint: 'scim2'
+          timeout: 60000
+        authentication:
+          type: 'basic'
+          credentials:
+            username: 'admin'
+            password: '{.YH8Te){*yQmWG7'
+    JWTKeys:
+      payeefsp_pub.key: |-
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1vLWJqL3z3z7WjKgL3s+
+        F/n4zxgoZxfZBKf2BCcPjb2VYPD8Hglj60EGhbu2N4rORRAJtvuK5r5OrRiPJ0gl
+        Iu9awIXjIa0Uj0uMke+diDbhbvNHz+agHR+mlXfWfcu57mfX8Gbdj5E/awDpN4F1
+        IMy2emTz5ibrfuGH62p19Hox/68HaPLVronDnhRdODQDYV1IFsueA9sUgJrnRCo9
+        GqYW6mQ6dCZBUwu231wxwLm/b/X9YH6ik6sXWW2IKOL8QJvOXRZDoZynYIZBBA2w
+        2dRFOJO+lrl+nYZg0b3xNY0ILofYsf6R+lN5w8t5x2/1vxPx9aYp4soaGyEEvDJh
+        iQIDAQAB
+        -----END PUBLIC KEY-----
+      payerfsp_pub.key.key: |-
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxxlpf6/Jy3m+xxvyE17Y
+        RL7/zmU2/H4HKIRknK8rBGHjbKUysDvz/ffC+pObGRUOPrWjgRcyUYVgLYHTHvbL
+        FjcpwfWghcciuZ4rudgqjxGiNHw8MMqvX1oLQrRIFwimo9G7xF1SGHn+w0i+2Msi
+        b6eVhBh99c2IrI8Tbk5mgmrATOSDzbhVKsN4XNJ7BBm6799slnLEpSXASZNLnf2t
+        9z251o1gArIe7qWbljzHgi4dmKURgeHRnea8WaPXUAMQGpKWwZffqlepgxgCx4KM
+        LPLZerOcgYkpIjYT/lT0JqUT3MYblzOp9ZAGdTqS33kjsJKZolur7fRUhdoBFRBj
+        QQIDAQAB
+        -----END PUBLIC KEY-----
+      testfsp1_pub.key: |-
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4ynCnHub7+B+ViT4vrBR
+        RAUtVoqC1WGyIjdQhFwNq4snsyd+O1wDr4uIceYCw1AhlpWglmTTMIseKckahcx1
+        itFWvi0VU827XgTxvReO4fS4MU/oUNcT61mRpf27KaCvQWcYasUU4eJ0OFzsKwuW
+        pyyi3yXuJebw9o+TXGOeCK+28lVMPo+9pOBCYESqZGxel/Pa4+1eLRHPhIjHq8KU
+        1CmHPkVAKLcHSJ9FKrtMj338rJxSyBywWWo9kuHZbHXlnmVhektSWLYn/kAx2TlE
+        MX2OFWU+gMA38rSBCODA1WKAst3HCHqxoJmuTHyMPi8aQb0Uafs71onDo5u9r1ov
+        0wIDAQAB
+        -----END PUBLIC KEY-----
+      testfsp2_pub.key: |-
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmzX8Ij8JPhdK05BBByJm
+        vLSUVmBiuTo25pFg/VsX3oyz87q1CaZ9WzgIKrO8ut6xjlJ+VYJB2w/kFwEOSHNJ
+        45RapXMJW6Hzc2gvCsfftXbIbGuj8jToLyPVu2A6nnFdEzL3jsgZnKAHDDsO8sNY
+        7Sbw1IXhz0qCcx8pIhFLULeZ65VSaRlL7SijpII1X05i5xOEVXP+8oLHyHir5W6S
+        1AtRfg7p6fU+LNwGf8WxP8z9qh6uvi5MgTAv0xuY8Y/8EU18E1PEVQ9+LIVHEkg0
+        x01L7yalzw4lp6llQ5MMERmZ9u+VaUuuuQ4h+up4963H/1giPOXW23xirqlGQiBK
+        awIDAQAB
+        -----END PUBLIC KEY-----
+      testfsp3_pub.key: |-
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvzYjTA6KZmvtt4a6PgXh
+        uTA1238UEef13RJztiEn0M+NUIhc9alhEqHkLyF2p5UgPW8vI6csPJP9pfqWjwu+
+        vm7jDF8uLGBznez83r0xxhzb3dZZoY6nhCIR+7E4jmNjpFnQ1Plx9jbhKsz2bv9R
+        uKthORwjebRZjjCSL/56pI0Nh09chlfNa/HywiAf8asP4utcSknxbVxChR1TNBdB
+        VMJcjjLs6gpad1gbB3Uu/X8DufC4sLFjaLwUZ+gS+FURT7tfsV3K3Eso9LPcWkxj
+        9SWlU2U/gggL3qYJC2Q1Qqys1wrjeDNqI8tWz02ixueugOzjKkyQ8c/+g2BviX7d
+        WwIDAQAB
+        -----END PUBLIC KEY-----
+      testfsp4_pub.key: |-
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzCSUdJAYMnjOxhZbN5Jb
+        7B11QTHZZeHnWcwLa7BWnS1ijoGGer6L1GoqoY9G2DHK4wFU2yJq1w14U6cMdwi9
+        CfVOvI6o2Ih6vLS4FjLh9SDH26Ukgri2tpyT7T5ka7HV0FhGqdwlFJZ4EKzp+HFy
+        bdmyAf74lgWr/k84h7Z/5JIr4MS+xVnocYZRzVSSvHO5aNO1O6VJZy4dK7B31uBz
+        jBFeb0uI95BmrnxXXt1zwv+Z5RNJXg9xrOLwqxMT2/4YNuzjtYJs1gr5iGKIisGc
+        0/erMkkWRDCf4SLAgUKvV3STWKKXSsWNuKcf/Rnq3lSXO7vkijm4f6CrDVFgaah2
+        RwIDAQAB
+        -----END PUBLIC KEY-----
+      testfsp5_pub.key: |-
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnL9LMebR3ky2ylZECBh3
+        ii49jTZnHYHeTmUmECBuaV+gSWcqa+/6iiXofQMMj+sBrpjmeIFjbNXLyoq6dCI7
+        F+RV/m//rLzeZQpwyDesIQjkcGcKyqa6dWjMngcxYiq6XcKS6bTKoHASWkN1rzlt
+        zOvTl51aW2TjhcyZYCHHhoy+H42v2T4+kLsROCL/Zkt7IsewozfMwnRaKqgQuivU
+        8goVPUfC8Qj0jvkpIpWEDXBLB+DOiiit9FYIqMVy5XaVSMAGROQbCNXW+NvuErSR
+        MMGY54erJs6hPAZqF72Losmyguo/yNtSUzBRJrrXzNGEBgnzaJD0heiK9ucKfrdg
+        WwIDAQAB
+        -----END PUBLIC KEY-----
+      testfsp6_pub.key: |-
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuBqL53FFY7OKhFpswQN6
+        ndLE2byS6oTalR0Az0/6KHWixXHh0oWFUsAjecrF8ksAynBlQ+/JkkosxfE3YD2/
+        ZpUTMDacKQd1/vgg1wc28bXmXUn/m7EGyqkBL50Gfy9iCaSUeiW7MIJzK4sjkKzv
+        u3+KeLY5OYlMjybQVQdRMCwftew3hqPpbyfDGWFrzDe9EG4hScIEDPQiEA0ntzXi
+        qsTGgSDI8YPKiP84MgTv+nHdQCTqE0K6sujViu/GRjse5a07zMENBN+C4rFszMN5
+        atj+WARwZBO8TTb7t43C0mSwz0ACfQmFsUcvdzoQsxAT/MZZqWuppQMusDPKkRDj
+        ywIDAQAB
+        -----END PUBLIC KEY-----
+      testfsp7_pub.key: |-
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA473FtxZzjinau9A9ahcK
+        0P6NjcdBRru7vZjrJiZBNWSdkxo7zLMH9nIwAkUMEzSSTDCwNQOo3AzUIshq08Qr
+        gQnNQeF/a++hqIdd2Z6J1o2A56QBDUeHLcqezs0Tt7s15aozrqrTyfVt/4HyXjql
+        J1naZA2sUNzLKeqsgeoBrwoOhwYQyZ6U7fMyB0eh/JvhXa4wRJJfOXpK+UBqVJuD
+        IbqEor03W0J4hq/APsFt4ujLRglQe02KmMQKJwq4FPhLNKvlxUibi+zdn/L9QtJV
+        VPMePMRMZ2iSpk+AHeGqMAKvPPmkgNywxPoHIz4Oxu0vR9c67jQWXE07FKSEJGdI
+        BwIDAQAB
+        -----END PUBLIC KEY-----
+      testfsp8_pub.key: |-
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAln5fy9+ERgHpl6LyWKAl
+        qWZ/kaZaKY8ejZ5DbN9GVunybn806xyrYVSrb49RiO1rCHdaL6mWXY9WQXnhDSVp
+        f1IxqE95D+Qveug3s3nQqz9C5A1KcaOxDmr1AJGry924a2lVdJHTZ29M1Mk9XN/x
+        11AqY3ZHXZAk72JLmbX/O9Pa5I16P3uA98nlDiG1KyCP5jaV2k2AKtPcrj6zuZsT
+        U0plFtHXzJ4PinlapiLkgqdLu/DyyTxcP+PQAzdNXtBy2Z9fiMYoflQJm+YcAOxi
+        ubMi0zpr4pYcxMvbDlXEu11NqzIh43oGkuMxmUeP/YGzTMFkds9Kgzpy7ZFRw+3X
+        MwIDAQAB
+        -----END PUBLIC KEY-----
+      testfsp98_pub.key: |-
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4izctZlj8+bnjkBM02yh
+        8sOZjcxE+t81DHNhtXNGdzxzhuUSHtNtVWEYVbeKlcwhRZ2EqZYs5FPLOKdhYZC0
+        Bwuw6b7WunRuUrf6yxpRfSIIQsHK/H+fW7kRyBys3O4hKDBojOAOeJCg86r3JmTr
+        csxp0DNt9gLENhRNjrrDbGf8zVnN0/Mydd0ZaxZEqFCZXUcJ2g0IlgNTqRfVjnTq
+        EpRAAk0rEPSlrxHdHpQGkJ5q5DtPDIrcUblshKau7zkJgvTnr6GQpwzOU7j0f44c
+        FUfnj3+Bb532aaPHhKpx0mTrj13eNoN3Rpu/hKwqmFRPGLwwSo6b6eGFTb0uP0TI
+        PQIDAQAB
+        -----END PUBLIC KEY-----
+      testfsp99_pub.key: |-
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5vJ5lR70A4qs44hbqIUQ
+        pPCkecvCt+TScIpu9r7nGxyz6GUIOU4BWVpdDkdVUs8G+6zfEY1BmuOSi5iqIjgb
+        LZSBny911iP7h6KEbe31LHs7hTfD5gpPRrMqlGzd/QP1B4Wd4+6xKN90m7I0Allf
+        SKRfm1lJgqpbgMPe4OlwoXKBACrTpBz/d1CMPNmoNsd/vUZ7WQ2XFmO2BcDmZFOQ
+        /Q5Xkbs2nWyMegXhwK7iBM7Hh6flrJndr+7lNEdCM5fK1iLDvF/tPPGOtbhMtm8e
+        Xd0zMfgbHmHoi/TaKo6jrLPHz+rcIWRtpv9sCCHe7odpKu5EIh7euJNTOW972sKc
+        cQIDAQAB
+        -----END PUBLIC KEY-----
+    backend:
+      enabled: true
+      image:
+        tag: v10.5.1
+      ingress:
+        enabled: true
+        hosts:
+          api: *api_hostname
+        # Note that the externalPath and nginx rewrite rule are different between dev and local as
+        # the ingress controller versions on each are different.
+        externalPath: /admin-portal-backend
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          # Note that the externalPath and nginx rewrite rule are different between dev and local as
+          # the ingress controller versions on each are different.
+          nginx.ingress.kubernetes.io/rewrite-target: /
+      init:
+        enabled: true
+        image:
+          repository: casablanca-casa-docker-release.jfrog.io/wso2is-populate
+          tag: v10.6.4
+          pullPolicy: Always
+    frontend:
+      enabled: true
+      image:
+        tag: v10.4.2
+      ingress:
+        enabled: true
+        hosts:
+          api: *api_hostname
+        # Note that the externalPath and nginx rewrite rule are different between dev and local as
+        # the ingress controller versions on each are different.
+        externalPath: /(.*)
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          # Version of ingress controller in DEV and UAT: rancher/nginx-ingress-controller:0.21.0-rancher3
+          ## NGINX Ingres Control < v0.22-
+          nginx.ingress.kubernetes.io/rewrite-target: ""
+          ## NGINX Ingres Control >= v0.22+
+          # nginx.ingress.kubernetes.io/rewrite-target: /$1
+  finance-portal-settlement-management:
+    config:
+      <<: *central_ledger_db_values
+    settlementManagement:
+      enabled: true
+      <<: *common_ingress_definition
+    operatorSettlement:
+      enabled: true
+      <<: *common_ingress_definition
+  ml-api-adapter:
+    ml-api-adapter-service:
+      <<: *waitformysql
+      <<: *common_sidecar_values
+      <<: *common_custom_error_ingress_definition
+      image:
+        tag: v11.0.3
+      config:
+        <<: *central_ledger_db_values
+        max_callback_time_lag_dilation_milliseconds: 5000
+    ml-api-adapter-handler-notification:
+      <<: *common_sidecar_values
+      <<: *common_ingress_definition
+      image:
+        tag: v11.0.3
+      config:
+        <<: *central_ledger_db_values
+        # disable "final notification" callbacks to payer DFSP
+        send_transfer_confirmation_to_payee: false
+        endpointSecurity:
+          <<: *jws_config
+  quoting-service:
+    <<: *common_sidecar_values
+    image:
+      tag: v11.0.2-snapshot
+    config:
+      simple_routing_mode_enabled: false
+      log_transport: "console"
+      log_level: "debug"
+      <<: *central_ledger_db_values
+      endpointSecurity:
+        <<: *jws_config
+
+    # NOTE: the following line should be kept as one liner in order to avoid messing with the whole values file
+    # in case you need to modify it you could prettify it, make the desired changes and minify it again.
+    # Added as a workaround as helm client version 2.9 does not support the flag `--set-file`
+    # which could solve the need of defining this value here.
+    # We should remove this definition once we upgrade our helm client.
+    rules:
+      template:
+      data:
+    <<: *common_custom_error_ingress_definition
+  simulator:
+    <<: *common_ingress_definition
+  transaction-requests-service:
+    <<: *common_ingress_definition
+  kafka:
+    persistence:
+      enabled: true
+      size: "10Gi"
+      mountPath: "/kafka"
+      storageClassName: "azurefilestorage"
+####################################################################################################
+## FXP deployment
+####################################################################################################
+mojaloop-fxp:
+  fullnameOverride: fxp-mojaloop-fxp
+  namespace: fxp
+  ingress:
+    enabled: true
+    annotations: {}
+    hosts:
+      exchangerates:
+        host: *api_hostname
+      tmf:
+        host: *api_hostname
+  db:
+    host: *central_ledger_db_host
+    user: *central_ledger_db_user
+    password: *central_ledger_db_password
+  create_schemas:
+    ENABLED: TRUE
+    db_host: *central_ledger_db_host
+    db_user: *central_ledger_db_user
+    db_password: *central_ledger_db_password
+    root_user: *central_ledger_db_user
+  fxpMysql:
+    ENABLED: FALSE
+    name: *central_ledger_db_host
+    MYSQL_USER: *central_ledger_db_user
+    MYSQL_PASSWORD: *central_ledger_db_password
+    MYSQL_ROOT_PASSWORD: *central_ledger_db_password
+    MYSQL_DATABASE: &fxpMysqlDb fxp_server
+    ports:
+      containerPort: 3306
+  server:
+    image:
+      tag: 1.16.9-4 # corresponds to release 1.16.10-3
+    initContainers: &fxp_init_containers
+    - name: create-schemas
+      env:
+      - name: DB_HOST
+        value: *central_ledger_db_host
+      - name: DB_PASSWORD
+        value: *central_ledger_db_password
+      - name: DB_USER
+        value: *central_ledger_db_user
+      - name: ROOT_USER
+        value: root
+      - name: DB_SCHEMA_FXP_SCHEME_ADAPTER
+        value: &fxpAdapterMysqlSchema fxp_scheme_adapter
+      - name: DB_SCHEMA_FXP_SERVER
+        value: *fxpMysqlDb
+      - name: DB_SCHEMA_TMF
+        value: &tmfDbSchemaName tmf
+      image: mysql
+      command:
+       - "bin/bash"
+       - "-c"
+       - >-
+         mysql -h$DB_HOST -u$ROOT_USER -p$DB_PASSWORD -e "
+         create database if not exists $DB_SCHEMA_FXP_SCHEME_ADAPTER;
+         create database if not exists $DB_SCHEMA_FXP_SERVER;
+         create database if not exists $DB_SCHEMA_TMF;
+         grant all privileges on $DB_SCHEMA_FXP_SCHEME_ADAPTER.* to $DB_USER;
+         grant all privileges on $DB_SCHEMA_FXP_SERVER.* to $DB_USER;
+         grant all privileges on $DB_SCHEMA_TMF.* to $DB_USER;"
+    # This value ensures that the configmap we supply in this chart is used by the mojaloop-fxp
+    # subchart
+    currencyDFSPConfigMapName: *currencyMapConfigMapName
+    fxpServerInitialConfigMapName: *fxpServerInitialConfigMapName
+    CURRENCY_DFSP: ./initialdata/currencyDFSP.json
+    env:
+      DATABASE_HOST: *central_ledger_db_host
+      DATABASE_USER: *central_ledger_db_user
+      DATABASE_PASSWORD: *central_ledger_db_password
+      DATABASE_SCHEMA: "fxp_server"
+      # FXP/TMF DEFAULTS - TODO: PERHAPS DELETE AFTER RESOLUTION OF THIS: https://modusbox.slack.com/archives/GLKA2FB4J/p1596810110165500
+      # RUN_DB_SCHEMA_CREATION: false
+      # RUN_DATA_CONFIGURATION: false
+      CURRENCY_CODES: "./initialdata/currencyCodes.json"
+      # CURRENCY_DFSP: "./initialdata/currencyDFSP.json"
+      CURRENCY_CHANNELS_RATES: "./initialdata/channelRates.json"
+      CURRENCY_DFSP_NAME_PATTERN: "^DFSP[A-Z]{3}$"
+      FXP_SERVER_PORT: "8080"
+      DB_RETRIES: "10"
+      DB_CONNECTION_RETRY_WAIT_MILLISECONDS: "5000"
+      # The following two values should be removed after moving to FXP 1.17.4 or later
+      QUOTE_A_EXPIRY_TIME_SUBTRACT_SECONDS: 0
+      TRANSFER_B_EXPIRY_TIME_SUBTRACT_SECONDS: 0
+
+      # MOWALI CONFIGURATION
+      DATABASE_PORT: "3306"
+      RUN_DB_SCHEMA_CREATION: true
+      RUN_DATA_CONFIGURATION: true
+      # As per https://modusbox.slack.com/archives/GGWBLT5GV/p1596577088068600
+      EXCHANGE_RATES_INCREMENT_END_TIME_HOUR: 3
+      EXCHANGE_RATES_INCREMENT_END_TIME_MINUTES: 0
+      FOREX_CREATED_BY: "SFTP"
+      DATA_CONFIGURATION_FILE: "/fxp-setup/fxpInitialConfiguration.json"
+      CURRENCY_DFSP: ./initialdata/currencyDFSP.json
+      
+  fxpAdapterMysql:
+    ENABLED: FALSE
+    name: *central_ledger_db_host
+    MYSQL_USER: *central_ledger_db_user
+    MYSQL_PASSWORD: *central_ledger_db_password
+    MYSQL_ROOT_PASSWORD: *central_ledger_db_password
+    MYSQL_DATABASE: fxp_scheme_adapter
+    ports:
+      containerPort: 3306
+  adapter:
+    # These value ensure that the secrets we supply in this chart are used by the mojaloop-fxp
+    # subchart
+    fspVerificationCertsSecretName: *fspVerificationCertsSecretName
+    fxpSigningKeysSecretName: *fxpSigningKeysSecretName
+    fxpInitialConfigMapName: *fxpInitialConfigMapName
+    image:
+      tag: 1.16.4-4 # corresponds to release 1.16.10-5
+    env:
+      PEER_ENDPOINT: "uat-casa-interop-switch.casahub.live"
+      # below endpoint should point to the transfers endpoint
+      # TRANSFERS_ENDPOINT: 'uat-casa-interop-switch.casahub.live'
+      # USE below value for lower envs only DO NOT propogate it to PROD, this is for testing only
+      TRANSFERS_ENDPOINT: 'fxp-mbox-fxp-hub-proxy:8087'
+      MAIL_SENDER_USER: 'business.alerts@mowali.com'
+      MAIL_SENDER_PASS: 'mgrmqvdnpjwhhmbd'
+      SMTP_HOST: 'smtp.office365.com'
+      SMTP_PORT: 587
+      MAIL_RECEIVER_USER_TRANSFER: business.alerts-test@mowali.com
+
+      # FXP/TMF DEFAULTS - TODO: PERHAPS DELETE AFTER RESOLUTION OF THIS: https://modusbox.slack.com/archives/GLKA2FB4J/p1596810110165500
+      INBOUND_LISTEN_PORT: "8000"
+      MUTUAL_TLS_ENABLED: false
+      # VALIDATE_INBOUND_JWS: true
+      # JWS_SIGN: true
+      JWS_SIGNING_KEY_PATH: "/secrets/jwsSigningKey.key"
+      CHECK_ILP: "TRUE"
+      ILP_SECRET: "Quaixohyaesahju3thivuiChai5cahng"
+      EXPIRY_SECONDS: "60"
+      # CACHE_HOST: mbox-fxp-mojaloop-fxp-redis
+      CACHE_PORT: "6379"
+      # SECOND_STAGE_QUOTE_RESPONSE_TIMEOUT: "10000"
+      FXP_MODE_ENABLED: true
+      LOG_INDENT: "0"
+      PEER_ROUTING_CONFIG: ""
+      FORWARD_PUT_QUOTES_TO_BACKEND: false
+      FORWARD_PUT_TRANSFERS_TO_BACKEND: false
+      # RUN_DATA_CONFIGURATION: false
+      # RUN_DB_SCHEMA_CREATION: false
+      DATA_CONFIGURATION_FILE: "/fxp-setup/fxpInitialConfiguration.json"
+      REJECT_TRANSFERS_ON_EXPIRED_QUOTES: true
+      TRANSFER_B_SENT_WAIT_MILLISECONDS: 5000
+      TRANSFER_B_IDLE_WAIT_MILLISECONDS: 5000
+      TRANSFER_B_IDLE_MAX_RETRIES: 2
+      RUN_CHECK_DB_UTC: "TRUE"
+      RUN_DB_SEED: "TRUE"
+      DB_RETRIES: "10"
+      DB_CONNECTION_RETRY_WAIT_MILLISECONDS: "5000"
+      CURRENCY_CODES: "./data/currencyCodes.json"
+      DFSP_ID_PATTERN: "^.{1,32}$"
+      # MAIL_RECEIVER_USER_TRANSFER: "modusboxsettlement@gmail.com"
+      # MAIL_SENDER_USER: "postmaster@sandbox655098fc1e694423a8df3ee3a8c28c21.mailgun.org"
+      # MAIL_SENDER_PASS: "ffb110529d24c2835c75f74047d113c9"
+      # SMTP_HOST: "smtp.mailgun.org"
+      # SMTP_PORT: "2525"
+      FXP_LEDGERS_API_PORT: "8082"
+
+      # MOWALI CONFIGURATION
+      VALIDATE_INBOUND_JWS: true
+      JWS_SIGN: true
+      JWS_VERIFICATION_KEYS_DIRECTORY: /jwsVerificationCerts
+      BACKEND_ENDPOINT: fxp-mojaloop-fxp-server:8080
+      CACHE_HOST: fxp-mojaloop-fxp-redis
+      RUN_DB_SCHEMA_CREATION: true
+      RUN_DATA_CONFIGURATION: true
+      SECOND_STAGE_QUOTE_RESPONSE_TIMEOUT: 10000
+      SECOND_STAGE_TRANSFER_RESPONSE_TIMEOUT: 432000000
+      QUOTE_A_EXPIRY_TIME_SUBTRACT_SECONDS: 0
+      TRANSFER_B_EXPIRY_TIME_SUBTRACT_SECONDS: 0      
+  tmf:
+    image:
+      tag: 1.16.7 # corresponds to release 1.16.10-3
+    env:
+      # FXP/TMF DEFAULTS - TODO: PERHAPS DELETE AFTER RESOLUTION OF THIS: https://modusbox.slack.com/archives/GLKA2FB4J/p1596810110165500
+      TMF_SERVER_PORT: "8084"
+      RUN_DB_SEED: "TRUE"
+      DB_RETRIES: "10"
+      DB_CONNECTION_RETRY_WAIT_MILLISECONDS: "5000"
+      CURRENCY_CODES: "./data/currencyCodes.json"
+      # | **Citi Forex order**
+      CITI_CLIENT_ACCOUNT: "00000001"
+      CITI_INBOUND_FILE_PREFIX: MOWALI
+      CITI_ORDER_REQUEST_TYPE: OrderRequest
+      CITI_TENOR: ON
+      CITI_SELL_SIDE: S
+      CITI_ORDER_TYPE_STANDARD: STANDARD
+      SETTLEMENT_WINDOW_STATUS_RETRIES: "10"
+      SW_STATUS_RETRY_WAIT_MILLISECONDS: "1000"
+      FOREX_CREATED_BY: "SFTP"
+      RUN_DB_SCHEMA_CREATION: TRUE
+      RUN_DATA_CONFIGURATION: TRUE
+      # | **Exchange rate time**
+      SETTLEMENT_WINDOW_CLOSE_HOUR: 8
+      SETTLEMENT_WINDOW_CLOSE_MINUTES: 30
+      # | **Forex currencies**
+      CURRENCY_PAIR: EURMAD
+      SENDING_CURRENCY: EUR
+      RECEIVING_CURRENCY: MAD
+      SENDER_VDFSP_NAME: DFSPEUR
+      RECEIVING_VDFSP_NAME: DFSPMAD
+      # | **Payment File generation**
+      PF_DFSP1_NAME: WHA
+      PF_DFSP2_NAME: OMA
+      TMF_WORKFLOW_DEFINITION: mvp2
+
+      # MOWALI CONFIGURATION    
+      database:
+        DATABASE_HOST: *central_ledger_db_host
+        DATABASE_USER: *central_ledger_db_user
+        DATABASE_PASSWORD: *central_ledger_db_password
+        DATABASE_SCHEMA: tmf
+        DATABASE_PORT: 3306
+        DISABLED: TRUE
+        DEBUG: "knex:*"
+      redis:
+        REDIS_HOST: fxp-mojaloop-fxp-redis
+        # TODO: The following two options should be defaults
+        REDIS_PORT: 6379
+        DISABLED: FALSE
+      SETTLEMENT_URL: http://casa-centralsettlement.ext-svcs/v1/settlements/:settlementId
+      PARTICIPANTS_URL: http://casa-centralledger-service.ext-svcs/participants
+      SETTLEMENT_MODEL: "DEFERREDNET"
+  portx:
+    enabled: true
+    name: portx-routing-engine
+    routingEngineConfigMapName: *portxRoutingEngineConfigMapName
+    image:
+      tag: 1.0.4
+    service:
+      type: NodePort
+    ports:
+      containerPort: 8085
+      nodePort: 31085
+
+  imagePullCredentials: *image_pull_credentials
+
+####################################################################################################
+## Mowali specific value overrides
+####################################################################################################
+casa:
+  ingress:
+    enabled: true
+    type: http
+    hosts:
+      api: *api_hostname
+
+reporting:
+  image:
+    tag: v10.4.1
+
+oracle-proxy:
+  enabled: true
+  db: *account_lookup_db_values
+  config:
+    moroccoOrangeFspId: 'testfsp4'
+  init:
+    config: *account_lookup_db_values
+
+mbox-fxp-hub-proxy:
+  fullnameOverride: fxp-mbox-fxp-hub-proxy
+  namespace: fxp
+  imagePullCredentials:
+    registry: modusbox-mbx-docker.jfrog.io
+    user: mowali-cicd
+    pass: nZ9F,qLJBeE7A9Xs?p{r    
+  fxpHubProxy:
+    env:
+      TRANSFER_ENDPOINT: "http://ml-api-adapter-service.ext-svcs"

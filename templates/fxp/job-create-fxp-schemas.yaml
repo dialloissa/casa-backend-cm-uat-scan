@@ -1,0 +1,39 @@
+{{- if (index .Values "mojaloop-fxp" "create_schemas" "ENABLED") -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name  }}-create-fxp-schemas
+  namespace: {{ default .Release.Namespace (index .Values "mojaloop-fxp" "namespace") }}
+  labels:
+    app: {{ template "casa.name" . }}
+    chart: {{ template "casa.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+
+spec:
+  template:
+    spec:
+      containers:
+      - name: create-schemas
+        env:
+        - name: DB_HOST
+          value: {{ index .Values "mojaloop-fxp" "create_schemas" "db_host" }}
+        - name: DB_PASSWORD
+          value: {{ index .Values "mojaloop-fxp" "create_schemas" "db_password" }}
+        - name: DB_USER
+          value: {{ index .Values "mojaloop-fxp" "create_schemas" "db_user" }}
+        - name: ROOT_USER
+          value: {{ index .Values "mojaloop-fxp" "create_schemas" "root_user" }}
+        - name: DB_SCHEMA_FXP_SCHEME_ADAPTER
+          value: {{ index .Values "mojaloop-fxp" "fxpAdapterMysql" "MYSQL_DATABASE" }}
+        - name: DB_SCHEMA_FXP_SERVER
+          value: {{ index .Values "mojaloop-fxp" "fxpMysql" "MYSQL_DATABASE" }}
+        - name: DB_SCHEMA_TMF
+          value: {{ index .Values "mojaloop-fxp" "tmf" "env" "database" "DATABASE_SCHEMA" }}
+        image: mysql
+        command:
+         - "bin/bash"
+         - "-c"
+         - "mysql -h$DB_HOST -u$ROOT_USER -p$DB_PASSWORD -e \"create database if not exists $DB_SCHEMA_FXP_SCHEME_ADAPTER; create database if not exists $DB_SCHEMA_FXP_SERVER; create database if not exists $DB_SCHEMA_TMF; grant all privileges on $DB_SCHEMA_FXP_SCHEME_ADAPTER.* to $DB_USER; grant all privileges on $DB_SCHEMA_FXP_SERVER.* to $DB_USER; grant all privileges on $DB_SCHEMA_TMF.* to $DB_USER;\""
+      restartPolicy: OnFailure
+{{- end}}

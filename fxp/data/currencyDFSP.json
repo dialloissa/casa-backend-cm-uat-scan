@@ -1,0 +1,38 @@
+[
+  {
+    "currency": "EUR",
+    "dfsp": "DFSPEUR"
+  },
+  {
+    "currency": "XOF",
+    "dfsp": "DFSPXOF"
+  },
+  {
+    "currency": "MAD",
+    "dfsp": "DFSPMAD"
+  },
+  {
+    "currency": "UGX",
+    "dfsp": "DFSPUGX"
+  },
+  {
+    "currency": "ZMW",
+    "dfsp": "DFSPZMW"
+  },
+  {
+    "currency": "RWF",
+    "dfsp": "DFSPRWF"
+  },
+  {
+    "currency": "GHS",
+    "dfsp": "DFSPGHS"
+  },
+  {
+    "currency": "XTS",
+    "dfsp": "DFSPXTS"
+  },
+  {
+    "currency": "XXX",
+    "dfsp": "DFSPXXX"
+  }
+]
